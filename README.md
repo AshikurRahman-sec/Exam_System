@@ -1,9 +1,9 @@
-                                  ###Exam_System
-##Description:
+                                  # Exam_System
+## Description:
 
 Exam_System is a web app.It's main purpose is take exam.
 
-##Installation:
+## Installation:
 
 1.First install xamp server.
 2.Install radis broker(version 2.10.6)
@@ -12,7 +12,7 @@ Exam_System is a web app.It's main purpose is take exam.
 5.Active virtualenvironment
 6.To install packages give command in commandline or powershell "pip install -r requirements.txt"
 
-##Run project:
+## Run project:
 
 1.Start mysql server
 2.Start radis server
