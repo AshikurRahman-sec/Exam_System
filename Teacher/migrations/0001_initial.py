@@ -10,18 +10,10 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
+        ('Student', '0001_initial'),
     ]
 
     operations = [
-        migrations.CreateModel(
-            name='Input',
-            fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(blank=True, max_length=255, null=True)),
-                ('source_code', models.TextField(blank=True, null=True)),
-                ('language_choices', models.CharField(blank=True, max_length=255, null=True)),
-            ],
-        ),
         migrations.CreateModel(
             name='Post',
             fields=[
@@ -44,13 +36,8 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('answer', models.CharField(blank=True, max_length=255, null=True)),
                 ('report', models.TextField(blank=True, null=True)),
-                ('problem', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='Compilation.Input')),
+                ('problem', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='Student.Input')),
             ],
-        ),
-        migrations.AddField(
-            model_name='input',
-            name='problem',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='Compilation.Post'),
         ),
         migrations.CreateModel(
             name='Exam',
@@ -60,7 +47,7 @@ class Migration(migrations.Migration):
                 ('examainer_name', models.CharField(blank=True, max_length=255, null=True)),
                 ('exam_starting_time', models.DateTimeField()),
                 ('exam_ending_time', models.DateTimeField()),
-                ('problem', models.ManyToManyField(to='Compilation.Post')),
+                ('problem', models.ManyToManyField(to='Teacher.Post')),
             ],
         ),
     ]

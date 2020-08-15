@@ -71,11 +71,9 @@
             <div class="col-xl-12 d-lg-flex justify-content-center">
                 <div class="login-form">
                     <h4 class="text-uppercase text-purple text-center mb-5">Login</h4>
-                    {% if next %}
-                    <form  action="../login/?next={{ request.path }}" method="POST">
-                    {% else %}
-                    <form  action="{% url 'moderator:login' %}" method="POST">
-                    {% endif %}
+                    
+                    <form   method="POST">
+                    
                         {% csrf_token %}
                         <div class="form-group">
                             <input type="username" name = 'username' class="form-control" id="exampleInputUsername" placeholder="Enter username">

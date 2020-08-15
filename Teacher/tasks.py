@@ -12,6 +12,7 @@ from .models import *
 import tempfile
 import psutil
 from Moderator.models import *
+from Student.models import *
 import filecmp 
 import difflib
 
@@ -150,7 +151,7 @@ def compile(user_id,id):
 
     
     
-    elif problem.language_choices =='JAVA':
+    elif problem.language_choices =='Java':
 
         codefile_path = file_path+".java"
         code_f = open(codefile_path,'w')
@@ -182,7 +183,7 @@ def compile(user_id,id):
 
             output = output + str(outcome)
 
-    elif problem.language_choices == 'PYTHON':
+    elif problem.language_choices == 'Python':
         codefile_path = file_path+".py"
         code_f = open(codefile_path,'w')
         code_f.write(problem.source_code)
@@ -288,3 +289,7 @@ def compile(user_id,id):
     r.report = difflib.HtmlDiff().make_file(first_file_lines,second_file_lines,first_file,second_file)
 
     r.save()
+
+def exam_paper_judge():
+    q_set = Question_Set.objects.get(id=id)
+    

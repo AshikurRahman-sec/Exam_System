@@ -71,11 +71,10 @@
                 <!--login form-->
                 <div class="login-form">
                     <h4 class="text-uppercase text-purple text-center mb-5">Create Account</h4>
-                    {% if next %}
-                    <form  method="POST" action="../Create_Account/?next={{ request.path }}" oninput='pass2.setCustomValidity(pass2.value != pass.value ? "Passwords do not match." : "")'>
-                        {% else %}
+                    
+                    
                     <form  method="POST" action="../Create_Account/" oninput='pass2.setCustomValidity(pass2.value != pass.value ? "Passwords do not match." : "")'>
-                        {% endif %}
+                
                         {% csrf_token %}
                         <div class="form-group">
                             <input name="username" type="username" class="form-control" id="exampleInputUsername" placeholder="Username">

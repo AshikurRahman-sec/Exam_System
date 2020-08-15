@@ -4,6 +4,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse,reverse_lazy
 from .models import *
 from django.contrib.auth import authenticate, login,logout
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 
@@ -37,16 +38,15 @@ class Create_Account(View):
         u = User()
         u.username = request.POST['username']
         u.set_password(request.POST['pass'])
-        redirect_to = next
         if request.POST['select'] == 'student':
             u.is_student = True
         else:
              u.is_teacher = True 
             
         u.save()
-        user = authenticate(username=u.username, password=u.password)
+        user = authenticate(username=request.POST['username'], password=request.POST['pass'])
         login(request, user)
-        return HttpResponseRedirect(redirect_to) 
+        return HttpResponseRedirect(reverse("moderator:home")) 
 
         """form = self.form_class(request.POST)
         if form.is_valid():
@@ -68,11 +68,11 @@ class LoginView(View):
         user = authenticate(username=username,password=password)
         if user is not None:
             login(request, user)
+            print("dkfkdfj",redirect_to)
             if redirect_to:
                 return HttpResponseRedirect(redirect_to)
             else:
                 return HttpResponseRedirect(reverse("moderator:home"))
-            
             # A backend authenticated the credentials
         else:
             return render(request,'login.html',{'error':1})
@@ -129,11 +129,12 @@ class Signout(View):
           return render(request, self.template_name, {'form': form})"""
 
 
-class About(View):
+class About(LoginRequiredMixin, View):
       #form_class = MyForm
       #initial = {'key': 'value'}
       #template_name = 'form_template.html'
-      template_name = 'about.html'                      
+      template_name = 'about.html'
+      login_url = 'moderator:login'                      
 
       def get(self, request, *args, **kwargs):
           """form = self.form_class(initial=self.initial)
@@ -141,4 +142,4 @@ class About(View):
           if request.user.is_authenticated:
             return render(request,self.template_name)
           else:
-            return render(request,'login.html',{"next":'next'})
+            return render(request,'login.html')

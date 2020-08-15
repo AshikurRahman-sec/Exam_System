@@ -407,9 +407,9 @@
                    Exams
                 </a>
                 <div class="dropdown-menu" aria-labelledby="actionNav">
-                    <a class="dropdown-item" href="{% url 'examcreate' %}">C programming Exams</a>
-                    <a class="dropdown-item" href="{% url 'examcreate' %}">Data Structure Exam</a>
-                    <a class="dropdown-item" href="{% url 'examcreate' %}">OOP Exams</a>
+                    <a class="dropdown-item" href="{% url 'moderator:teacher:examcreate' %}">C programming Exams</a>
+                    <a class="dropdown-item" href="{% url 'moderator:teacher:examcreate' %}">Data Structure Exam</a>
+                    <a class="dropdown-item" href="{% url 'moderator:teacher:examcreate' %}">OOP Exams</a>
                   <!--  <a class="dropdown-item" href="#">Developer Friendly Code</a>
                     <a class="dropdown-item" href="#">SASS and GULP Task</a>
                     <a class="dropdown-item" href="#">Fully Responsive</a>
@@ -436,7 +436,7 @@
                     Students
                 </a>
                 <div class="dropdown-menu" aria-labelledby="orderNav">
-                    <a class="dropdown-item" href="{% url 'courselist' %}">Courses</a>
+                    <a class="dropdown-item" href="{% url 'moderator:student:courselist' %}">Courses</a>
                     
                 </div>
             </li>

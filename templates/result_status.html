@@ -4,13 +4,14 @@
 <!-- Mirrored from thevectorlab.net/dashlab-v1.3/table-basic.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Feb 2019 05:40:18 GMT -->
 
 <head>
+    {% load static %}
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="Mosaddek">
 
     <!--favicon icon-->
-    <link rel="icon" type="image/png" href="../static/img/favicon.html">
+    <link rel="icon" type="image/png" href="{% static '/img/favicon.html'%}">
 
     <title>Basic Table</title>
 
@@ -19,34 +20,34 @@
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
 
     <!--bootstrap styles-->
-    <link href="../static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{% static '/vendor/bootstrap/css/bootstrap.min.css'%}" rel="stylesheet">
 
     <!--icon font-->
-    <link href="../static/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <link href="../static/vendor/dashlab-icon/dashlab-icon.css" rel="stylesheet">
-    <link href="../static/vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
-    <link href="../static/vendor/themify-icons/css/themify-icons.css" rel="stylesheet">
-    <link href="../static/vendor/weather-icons/css/weather-icons.min.css" rel="stylesheet">
+    <link href="{% static '/vendor/font-awesome/css/font-awesome.min.css'%}" rel="stylesheet">
+    <link href="{% static '/vendor/dashlab-icon/dashlab-icon.css'%}" rel="stylesheet">
+    <link href="{% static '/vendor/simple-line-icons/css/simple-line-icons.css'%}" rel="stylesheet">
+    <link href="{% static '/vendor/themify-icons/css/themify-icons.css'%}" rel="stylesheet">
+    <link href="{% static '/vendor/weather-icons/css/weather-icons.min.css'%}" rel="stylesheet">
 
     <!--custom scrollbar-->
-    <link href="../static/vendor/m-custom-scrollbar/jquery.mCustomScrollbar.css" rel="stylesheet">
+    <link href="{% static '/vendor/m-custom-scrollbar/jquery.mCustomScrollbar.css'%}" rel="stylesheet">
 
     <!--jquery dropdown-->
-    <link href="../static/vendor/jquery-dropdown-master/jquery.dropdown.css" rel="stylesheet">
+    <link href="{% static '/vendor/jquery-dropdown-master/jquery.dropdown.css'%}" rel="stylesheet">
 
     <!--jquery ui-->
-    <link href="../static/vendor/jquery-ui/jquery-ui.min.css" rel="stylesheet">
+    <link href="{% static '/vendor/jquery-ui/jquery-ui.min.css'%}" rel="stylesheet">
 
     <!--iCheck-->
-    <link href="../static/vendor/icheck/skins/all.css" rel="stylesheet">
+    <link href="{% static '/vendor/icheck/skins/all.css'%}" rel="stylesheet">
 
     <!--custom styles-->
-    <link href="../static/css/main.css" rel="stylesheet">
+    <link href="{% static '/css/main.css'%}" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
-    <script src="../static/vendor/html5shiv.js"></script>
-    <script src="../static/vendor/respond.min.js"></script>
+    <script src="{% static '/vendor/html5shiv.js'%}"></script>
+    <script src="{% static '/vendor/respond.min.js'%}"></script>
     <![endif]-->
 </head>
 
@@ -57,7 +58,7 @@
 
         <!--brand name-->
         <a class="navbar-brand" href="#" data-jq-dropdown="#jq-dropdown-1">
-            <img class="pr-3 float-left" src="../static/img/logo-icon.png" srcset="../static/img/logo-icon@2x.png 2x" alt="" />
+            <img class="pr-3 float-left" src="{% static '/img/logo-icon.png'%}" srcset="{% static '/img/logo-icon@2x.png 2x'%}" alt="" />
             <div class="float-left">
                 <div>DashLab <i class="fa fa-caret-down pl-2"></i></div>
                 <span class="page-direction f12 weight300">
@@ -75,7 +76,7 @@
                 <div class="card card-shadow">
                     <div class="card-header p-2 pl-3">
                         <div class="navbar-brand mt-2">
-                            <img class="pr-3 float-left" src="../static/img/logo-icon.png" srcset="../static/img/logo-icon@2x.png 2x" alt="" />
+                            <img class="pr-3 float-left" src="{% static '/img/logo-icon.png'%}" srcset="{% static '/img/logo-icon@2x.png 2x'%}" alt="" />
                             <div class="float-left">
                                 <div>DashLab</div>
                                 <span class="page-direction f12 weight300">
@@ -459,7 +460,7 @@
                         <div class="dropdown-divider mb-0"></div>
                         <a class="dropdown-item border-bottom msg-unread" href="#">
                             <div class="float-left notificaton-thumb">
-                                <img class="rounded-circle" src="../static/img/avatar/avatar4.jpg" alt="" />
+                                <img class="rounded-circle" src="{% static '/img/avatar/avatar4.jpg'%}" alt="" />
                             </div>
                             <span class="weight500">Andrew Flinton</span>
                             <span class="small float-right text-muted">08:30 AM</span>
@@ -471,7 +472,7 @@
 
                         <a class="dropdown-item border-bottom msg-unread" href="#">
                             <div class="float-left notificaton-thumb">
-                                <img class="rounded-circle" src="../static/img/avatar/avatar2.jpg" alt="" />
+                                <img class="rounded-circle" src="{% static '/img/avatar/avatar2.jpg'%}" alt="" />
                             </div>
                             <span class="weight500">John Doe</span>
                             <span class="small float-right text-muted">10:28 AM</span>
@@ -483,7 +484,7 @@
 
                         <a class="dropdown-item border-bottom" href="#">
                             <div class="float-left notificaton-thumb">
-                                <img class="rounded-circle" src="../static/img/avatar/avatar3.jpg" alt="" />
+                                <img class="rounded-circle" src="{% static '/img/avatar/avatar3.jpg'%}" alt="" />
                             </div>
                             <span class="weight500">Dash Don</span>
                             <span class="small float-right text-muted">07:12 PM</span>
@@ -495,7 +496,7 @@
 
                         <a class="dropdown-item border-bottom" href="#">
                             <div class="float-left notificaton-thumb">
-                                <img class="rounded-circle" src="../static/img/avatar/avatar1.jpg" alt="" />
+                                <img class="rounded-circle" src="{% static '/img/avatar/avatar1.jpg'%}" alt="" />
                             </div>
                             <span class="weight500">dkmosa</span>
                             <span class="small float-right text-muted">12:10 PM</span>
@@ -565,7 +566,7 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle mr-lg-3" id="userNav" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <div class="user-thumb">
-                            <img class="rounded-circle" src="../static/img/avatar/avatar1.jpg" alt="" />
+                            <img class="rounded-circle" src="{% static '/img/avatar/avatar1.jpg'%}" alt="" />
                         </div>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userNav">
@@ -774,6 +775,7 @@
                                         <th scope="col">#</th>
                                         <th scope="col">Problem Name</th>
                                         <th scope="col">Username</th>
+                                        <th scope="col">Language</th>
                                         <th scope="col">Status</th>
                                         <th scope="col">Report</th>
                                     </tr>
@@ -782,10 +784,11 @@
                                     {% for i in r %}
                                     <tr>
                                         <th scope="row">{{forloop.counter}}</th>
-                                        <td><a href="{% url 'problemdetail' i.problem.problem.id %}">{{i.problem.problem.Problem_Name}}</a></td>
-                                        <td>{{request.user.email}}</td>
+                                        <td><a href="{% url 'moderator:student:problemdetail' i.problem.problem.id %}">{{i.problem.problem.Problem_Name}}</a></td>
+                                        <td>{{request.user.username}}</td>
+                                        <td>{{i.problem.language_choices}}</td>
                                         <td>{{i.answer}}</td>
-                                        <td><a href = "{% url  'report' i.id %}">report</a></td>
+                                        <td><a href = "{% url  'moderator:teacher:report' i.id %}">report</a></td>
                                         
                                     </tr>
 
@@ -1262,7 +1265,7 @@
                         <li class="cursor">
                             <div class="media mb-4">
                                 <div class="st-alphabet mr-3">
-                                    <img class="rounded-circle" src="../static/img/avatar/avatar1.jpg" alt=" ">
+                                    <img class="rounded-circle" src="{% static '/img/avatar/avatar1.jpg'%}" alt=" ">
                                     <span class="status bg-success"></span>
                                 </div>
                                 <div class="media-body ">
@@ -1276,7 +1279,7 @@
                         <li class="cursor">
                             <div class="media mb-4">
                                 <div class="st-alphabet mr-3">
-                                    <img class="rounded-circle" src="../static/img/avatar/avatar2.jpg" alt=" ">
+                                    <img class="rounded-circle" src="{% static '/img/avatar/avatar2.jpg'%}" alt=" ">
                                     <span class="status bg-warning"></span>
                                 </div>
                                 <div class="media-body ">
@@ -1290,7 +1293,7 @@
                         <li class="cursor">
                             <div class="media mb-4">
                                 <div class="st-alphabet mr-3">
-                                    <img class="rounded-circle" src="../static/img/avatar/avatar3.jpg" alt=" ">
+                                    <img class="rounded-circle" src="{% static '/img/avatar/avatar3.jpg'%}" alt=" ">
                                     <span class="status bg-info"></span>
                                 </div>
                                 <div class="media-body">
@@ -1304,7 +1307,7 @@
                         <li class="cursor">
                             <div class="media mb-3">
                                 <div class="st-alphabet mr-3">
-                                    <img class="rounded-circle" src="../static/img/avatar/avatar4.jpg" alt=" ">
+                                    <img class="rounded-circle" src="{% static '/img/avatar/avatar4.jpg'%}" alt=" ">
                                     <span class="status bg-danger"></span>
                                 </div>
                                 <div class="media-body">
@@ -1375,20 +1378,20 @@
     <!--/right sidebar-->
 
     <!--basic scripts-->
-    <script src="../static/vendor/jquery/jquery.min.js"></script>
-    <script src="../static/vendor/jquery-ui/jquery-ui.min.js"></script>
-    <script src="../static/vendor/popper.min.js"></script>
-    <script src="../static/vendor/bootstrap/js/bootstrap.min.js"></script>
-    <script src="../static/vendor/jquery-dropdown-master/jquery.dropdown.js"></script>
-    <script src="../static/vendor/m-custom-scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
-    <script src="../static/vendor/icheck/skins/icheck.min.js"></script>
+    <script src="{% static '/vendor/jquery/jquery.min.js'%}"></script>
+    <script src="{% static '/vendor/jquery-ui/jquery-ui.min.js'%}"></script>
+    <script src="{% static '/vendor/popper.min.js'%}"></script>
+    <script src="{% static '/vendor/bootstrap/js/bootstrap.min.js'%}"></script>
+    <script src="{% static '/vendor/jquery-dropdown-master/jquery.dropdown.js'%}"></script>
+    <script src="{% static '/vendor/m-custom-scrollbar/jquery.mCustomScrollbar.concat.min.js'%}"></script>
+    <script src="{% static '/vendor/icheck/skins/icheck.min.js'%}"></script>
 
     <!--[if lt IE 9]>
-    <script src="../static/vendor/modernizr.js"></script>
+    <script src="{% static '/vendor/modernizr.js'%}"></script>
     <![endif]-->
 
     <!--basic scripts initialization-->
-    <script src="../static/js/scripts.js"></script>
+    <script src="{% static '/js/scripts.js'%}"></script>
 </body>
 
 <!-- Mirrored from thevectorlab.net/dashlab-v1.3/table-basic.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Feb 2019 05:40:18 GMT --></html>

@@ -20,7 +20,7 @@ from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',include('Compilation.urls')),
-    path('moderator/',include('Moderator.urls',namespace="moderator")),
+    #path('',include('Compilation.urls')),
+    path('',include('Moderator.urls',namespace="moderator")),
     path('ckeditor/', include('ckeditor_uploader.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

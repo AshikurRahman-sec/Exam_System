@@ -1,7 +1,22 @@
 from django.shortcuts import render
 from .Forms.post import PostForm 
-from .models import Post 
 
+import subprocess
+import os
+from .models import *
+from  Exam_System.settings import *
+import tempfile
+import psutil
+from django.views.generic import View
+from django.http import HttpResponse, HttpResponseRedirect
+from django.urls import reverse,reverse_lazy
+
+from .tasks import * 
+#from django.conf import settings
+from django.core.files.storage import FileSystemStorage
+from datetime import datetime, timedelta, time
+from Moderator.models import *
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 
@@ -15,14 +30,14 @@ from .models import Post
 
 
 
-class Q_Create(View): 
+class Q_Create(LoginRequiredMixin, View):
+
+    login_url = 'moderator:login'  
     
     def get(self, request, *args, **kwargs):
            
-        if request.user.is_authenticated:
-            return render(request,'postcreate.html',{'form':PostForm})
-        else:
-            return render(request,'login.html')
+        return render(request,'postcreate.html',{'form':PostForm})
+        
     
     def post(self, request):
         f = PostForm(request.POST)
@@ -51,4 +66,97 @@ class Q_Create(View):
             p.Description= f.cleaned_data["Description"]
 
             p.save()
-        return HttpResponseRedirect(reverse('home'))
+        return HttpResponseRedirect(reverse('moderator:home'))
+
+
+class Exam_create(LoginRequiredMixin, View):
+    
+    login_url = 'moderator:login' 
+
+    def get(self,request,*args,**kwargs):
+        
+        context = {
+            "problems":Post.objects.all()
+        }
+
+        return render(request,'form-pickers.html',context)
+    
+    def post(self,request,*args,**kwargs):
+
+        e = Exam()
+        e.exam_name = request.POST.get("examename")
+        e.examainer_name = request.POST.get("examiner_name")
+        e.exam_starting_time = request.POST.get("starting")+" "+request.POST.get("starting_time")
+        e.exam_ending_time = e.exam_starting_time
+        e.save()
+        for i in request.POST.getlist("my_multi_select1[]"):
+            e.problem.add(Post.objects.get(Problem_Name = i))
+        context = {
+            "exams" : Exam.objects.all()
+        }
+        return render(request,"table-datatable.html",context)
+
+class Report_Show(LoginRequiredMixin, View):
+
+    login_url = 'moderator:login' 
+
+    def get(self,request,*args,**kwargs):
+        r = Result.objects.get(id = kwargs["id"])
+        f = open(BASE_DIR+"\\"+"templates"+"\\"+"report.html","w")
+        f.write(r.report)
+        f.close()
+        return render(request,"report.html")
+
+class Result_Show(LoginRequiredMixin, View):
+
+    login_url = 'moderator:login' 
+
+    def get(self,request,*args,**kwargs):
+       
+        r = Result.objects.all()
+        context={
+            'r':r
+        }
+        return render(request,"result_status.html",context)
+        
+class Take_Attendence(LoginRequiredMixin, View):
+    
+    login_url = 'moderator:login'
+
+    def get(self,request,*args,**kwargs):
+        
+        return render(request,"attendence.html",context)
+    
+    
+    def post(self,request,*args,**kwargs):
+
+        course = Course.objects.get(title=request.get['course_name'])
+        student = User.objects.get(username=request.get['username'])
+        attendence = Attendence()
+        attendence.course = c
+        attendence.student = student
+        attendence.save()
+        context ={
+            'objects':Attendence.objects.filter(course_title=request.get['course_name'])
+        }
+
+        return render(request,'course_attendence.html',context)
+
+class Attendence(LoginRequiredMixin, View):
+    login_url = 'moderator:login'
+    
+    def get(self,request,*args,**kwargs):
+        
+        return render(request,'course.html')
+        
+    def post(self,request,*args,**kwargs):
+        c = course.objects.get(title = kwargs['course_name'])
+        if c.teacher[-1].username == request.user.username:
+            context = {
+                'course_name':kwargs['course_name']
+                'datetime': datetime.now()
+
+            }
+            return(request,'attedence_list.html',context)
+        else:
+            return HttpResponse('you are permitted this course')
