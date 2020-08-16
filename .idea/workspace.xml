@@ -2,19 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e22647c6-a4b6-4bb1-a45a-fbf3cde8493e" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/Exam_System.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Exam_System.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Exam_System/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/Exam_System/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/about.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/about.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/chartjs.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/chartjs.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/form-checkbox-radio.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/form-checkbox-radio.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/form-pickers.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/form-pickers.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/home.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/marks.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/marks.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/postcreate.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/postcreate.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/result_status.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/result_status.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/table-datatable.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/table-datatable.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
