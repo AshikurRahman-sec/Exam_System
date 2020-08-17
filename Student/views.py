@@ -14,6 +14,7 @@ from django.urls import reverse,reverse_lazy
 from django.core.files.storage import FileSystemStorage
 from datetime import datetime, timedelta, time
 from Moderator.models import *
+from Teacher.models import *
 from django.contrib.auth.mixins import LoginRequiredMixin
 from Teacher.tasks import *
 
@@ -88,12 +89,24 @@ class Problem_show(LoginRequiredMixin, View):
     login_url = 'moderator:login'
     
     def get(self,request,*args,**kwargs):
+        """
         context={
             'problem_id' : Post.objects.get(id = kwargs['id'])
         }
+        
+        """
+        q_set = Question_Set.objects.all()[0]
+        q = q_set.questions
+        context = {
+            'set':q_set,
+            'description':q.description.all(),
+            'multiple':q.multipl.all(),
+            'truefalse':q.truefalse.all(),
+            'code':q.code.all()
+        }
+        
 
-        return render(request,'blank-page.html',context)
-
+        return render(request,'temporary.html',context)
 class Exam_list(LoginRequiredMixin, View):
 
     login_url = 'moderator:login'

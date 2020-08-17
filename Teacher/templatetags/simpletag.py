@@ -4,8 +4,8 @@ from Teacher.models import Attendance
 register = template.Library()
 
 @register.simple_tag
-def (name):
-    attendance = Attendance.objects.filter(student.username=name)
+def attendent(name):
+    attendance = Attendance.objects.get(student__username = name)
     return attendance.count()
 
 

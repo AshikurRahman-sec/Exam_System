@@ -153,7 +153,7 @@ class Attendence(LoginRequiredMixin, View):
         c = course.objects.get(title = kwargs['course_name'])
         if c.teacher[-1].username == request.user.username:
             context = {
-                'course_name':kwargs['course_name']
+                'course_name': kwargs['course_name'],
                 'datetime': datetime.now()
 
             }

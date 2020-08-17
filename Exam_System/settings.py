@@ -20,7 +20,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '7d^6yt+-arb5=dznvis#)1^4^ovgzkza)gqapzhfrk1g!t^)wz'
+print(os.environ["VIRTUAL_ENV"])
+SECRET_KEY = os.environ["SECRET_KEY"]
+#SECRET_KEY = '7d^6yt+-arb5=dznvis#)1^4^ovgzkza)gqapzhfrk1g!t^)wz'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -180,3 +182,14 @@ DATABASES = {
 
 # authentication
 AUTH_USER_MODEL = 'Moderator.User'
+
+
+# Email settings
+
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_HOST_USER = 'Ashikur Rahman'
+EMAIL_HOST_PASSWORD = os.environ['EMAIL_HOST_PASSWORD']
+#EMAIL_HOST_PASSWORD = 'ash1234..'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+print(os.environ['VIRTUAL_ENV'])

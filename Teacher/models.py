@@ -4,7 +4,7 @@ from ckeditor_uploader.fields import RichTextUploadingField
 # Create your models here.
 
 class Title(models.Model):
-	title = models.CharField(max_length=500,blank=True,null=True,unique=True)
+	title = models.CharField(max_length=255,blank=True,null=True,unique=True)
 
 	def __str__(self):
 		return self.title
@@ -15,51 +15,54 @@ class Description(models.Model):
 	answer = models.TextField(blank = True,null = True)
 
 	def __str__ (self):
-		return self.title 
+		return self.title.title
 
 class Multiple_Choice(models.Model):
-    title = models.ForeignKey(Title,on_delete=models.CASCADE)
+	title = models.ForeignKey(Title,on_delete=models.CASCADE)
 	option1 = models.CharField(max_length=500,blank=True,null=True)
-	option1 = models.CharField(max_length=500,blank=True,null=True)
-	option1 = models.CharField(max_length=500,blank=True,null=True)
-	option1 = models.CharField(max_length=500,blank=True,null=True)
-    answer = models.CharField(max_length=500,blank=True,null=True)
+	option2 = models.CharField(max_length=500,blank=True,null=True)
+	option3 = models.CharField(max_length=500,blank=True,null=True)
+	option4 = models.CharField(max_length=500,blank=True,null=True)
+	answer = models.CharField(max_length=500,blank=True,null=True)
 
 	def __str__ (self):
-		return self.title
+		return self.title.title
 
 class Code(models.Model):
-    title = models.ForeignKey(Title,on_delete=models.CASCADE)
+	title = models.ForeignKey(Title,on_delete=models.CASCADE)
 	Code = models.TextField(blank = True,null= True)
-    answer = models.TextField(blank = True,null= True)
+	answer = models.TextField(blank = True,null= True)
 
 	def __str__ (self):
-		return self.title
+		return self.title.title
 
 class True_False(models.Model):
-    title = models.ForeignKey(Title,on_delete=models.CASCADE)
+	title = models.ForeignKey(Title,on_delete=models.CASCADE)
 	Statements = models.CharField(max_length=500,blank=True,null=True)
 	answer = models.CharField(max_length=500,blank=True,null=True)
 	
 	def __str__ (self):
-		return self.title
+		return self.title.title
 
 class Question(models.Model):
 	part = models.CharField(max_length=5,blank=True,null=True)
-    no = models.IntegerField(null = True,blank = True)
-    description = models.ForeignKey(Description,on_delete=models.CASCADE)
-	multipl = models.ForeignKey(Multiple_Choice,on_delete=models.CASCADE)
-	code = models.ForeignKey(Code,on_delete=models.CASCADE)
-    truefalse = models.ForeignKey(True_False,on_delete=models.CASCADE)
-
-    def __str__(self):
-		return self.no
+	no = models.IntegerField(null = True,blank = True)
+	description = models.ManyToManyField(Description)
+	multipl = models.ManyToManyField(Multiple_Choice)
+	code = models.ManyToManyField(Code)
+	truefalse = models.ManyToManyField(True_False)
+	
+	def __str__(self):
+		return str(self.no)
 
 class Question_Set(models.Model):
 	course = models.ForeignKey('Moderator.Course',on_delete=models.CASCADE)
-    title = models.CharField(max_length=20,null= True,blank= True)
+	title = models.CharField(max_length=20,null= True,blank= True)
 	questions = models.ForeignKey(Question,on_delete=models.CASCADE)
 	date_time = models.DateTimeField(auto_now_add=True)
+
+	def __str__(self):
+		return self.course.title
 
 class Post(models.Model):
 	
