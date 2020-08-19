@@ -5,7 +5,9 @@ from django.urls import reverse,reverse_lazy
 from .models import *
 from django.contrib.auth import authenticate, login,logout
 from django.contrib.auth.mixins import LoginRequiredMixin
-
+from django.contrib.auth.models import Group
+my_group = Group.objects.get(name='my_group_name') 
+my_group.user_set.add(your_user)
 
 
 
@@ -38,14 +40,18 @@ class Create_Account(View):
         u = User()
         u.username = request.POST['username']
         u.set_password(request.POST['pass'])
+        
         if request.POST['select'] == 'student':
             u.is_student = True
+            my_group = Group.objects.get(name='student')
         else:
+            my_group = Group.objects.get(name='teacher')
              u.is_teacher = True 
             
         u.save()
         user = authenticate(username=request.POST['username'], password=request.POST['pass'])
         login(request, user)
+        my_group.user_set.add(user)
         return HttpResponseRedirect(reverse("moderator:home")) 
 
         """form = self.form_class(request.POST)
@@ -107,39 +113,57 @@ class LoginView(View):
 
 
 class Signout(View):
-      #form_class = MyForm
-      #initial = {'key': 'value'}
-      #template_name = 'form_template.html'
+    #form_class = MyForm
+    #initial = {'key': 'value'}
+    #template_name = 'form_template.html'
 
-      def get(self, request, *args, **kwargs):
-          if request.user.is_authenticated:
-              logout(request)
-          return HttpResponseRedirect(reverse('moderator:home'))
+    def get(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            logout(request)
+        return HttpResponseRedirect(reverse('moderator:home'))
 
 
-          """form = self.form_class(initial=self.initial)
-           return render(request, self.template_name, {'form': form})"""
+        """form = self.form_class(initial=self.initial)
+        return render(request, self.template_name, {'form': form})"""
          
 
-      """def post(self, request, *args, **kwargs):
-          form = self.form_class(request.POST)
-          if form.is_valid():
-              # <process form cleaned data>
-              return HttpResponseRedirect('/success/')
-          return render(request, self.template_name, {'form': form})"""
+    """def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            # <process form cleaned data>
+            return HttpResponseRedirect('/success/')
+        return render(request, self.template_name, {'form': form})"""
 
 
 class About(LoginRequiredMixin, View):
-      #form_class = MyForm
-      #initial = {'key': 'value'}
-      #template_name = 'form_template.html'
-      template_name = 'about.html'
-      login_url = 'moderator:login'                      
+    #form_class = MyForm
+    #initial = {'key': 'value'}
+    #template_name = 'form_template.html'
+    template_name = 'about.html'
+    login_url = 'moderator:login'                      
 
-      def get(self, request, *args, **kwargs):
-          """form = self.form_class(initial=self.initial)
-          return render(request, self.template_name, {'form': form})"""
-          if request.user.is_authenticated:
-            return render(request,self.template_name)
-          else:
-            return render(request,'login.html')
+    def get(self, request, *args, **kwargs):
+        """form = self.form_class(initial=self.initial)
+        return render(request, self.template_name, {'form': form})"""
+        return render(request,self.template_name)
+
+class Group_View(LoginRequiredMixin, View):
+    login_url = 'moderator:login' 
+
+    def get(self, request, *args, **kwargs):
+        """form = self.form_class(initial=self.initial)
+        return render(request, self.template_name, {'form': form})"""
+        context = {
+            'permissions':Permission.objects.all()
+        }
+          
+        return render(request,'.html',context)
+    
+    def post(self, request, *args, **kwargs):
+        
+        g = Group()
+        g.name = request.POST['name']
+        for i in request.POST.getlist("my_multi_select1[]"):
+            g.permissions.add(Permission.objects.get(name = i))
+        
+        return render(request,'home.html')
