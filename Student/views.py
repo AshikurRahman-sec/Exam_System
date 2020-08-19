@@ -107,6 +107,7 @@ class Problem_show(LoginRequiredMixin, View):
         
 
         return render(request,'temporary.html',context)
+
 class Exam_list(LoginRequiredMixin, View):
 
     login_url = 'moderator:login'

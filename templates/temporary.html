@@ -1,24 +1,20 @@
-{% with count=0  %}        
 <p>{{set.course.title}}</p>
 <p>{{set.questions.no}}</p>
 {% for i in description %}
-{% with count=count|add:"1"  %}
-<p>{{ count }}.{{i.title.title}}</p>
-{% endwith %}
+<p>{{i.title.title}}</p>
 {% endfor %}
 {% for i in multiple %}
-<p>{{ count|add:"1" }}.{{i.title.title}}</p>
-<p>{{forloop.counter}}.{{i.option1}}</p>
-<p>{{forloop.counter}}.{{i.option2}}</p>
-<p>{{forloop.counter}}.{{i.option3}}</p>
-<p>{{forloop.counter}}.{{i.option4}}</p>
+<p>{{i.title.title}}</p>
+<p>{{i.option1}}</p>
+<p>{{i.option2}}</p>
+<p>{{i.option3}}</p>
+<p>{{i.option4}}</p>
 {% endfor %}
-<p>{{ count|add:"1" }}.{{truefalse.0.title.title}}</p>
+<p>{{truefalse.0.title.title}}</p>
 {% for i in truefalse%}
-<p>{{forloop.counter}}{{i.Statements}}</p>
+<p>{{i.Statements}}</p>
 {% endfor %}
 {%for i in code%}
-<p>{{ count|add:"1" }}.{{i.title.title}}</p>
+<p>{{i.title.title}}</p>
 <p>{{i.Code}}</p>
 {%endfor%}
-{% endwith %}
