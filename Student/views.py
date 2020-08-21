@@ -94,7 +94,8 @@ class Problem_show(LoginRequiredMixin, View):
             'problem_id' : Post.objects.get(id = kwargs['id'])
         }
         
-        """
+          """
+
         q_set = Question_Set.objects.all()[0]
         q = q_set.questions
         context = {
@@ -104,7 +105,7 @@ class Problem_show(LoginRequiredMixin, View):
             'truefalse':q.truefalse.all(),
             'code':q.code.all()
         }
-        
+
 
         return render(request,'temporary.html',context)
 
