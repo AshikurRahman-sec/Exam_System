@@ -81,8 +81,9 @@ def compile(user_id,id):
     file_path = settings.MEDIA_ROOT+"\\"+"code_file"+"\\"+problem.title+"_"+str(problem.id)
      
     input_file_path = settings.MEDIA_ROOT+"\\"+"input"+"\\"+problem.title+".txt"
-
-    in_f = open(input_file_path,"r")
+    
+    if os.path.exists(input_file_path):
+        in_f = open(input_file_path,"r")
 
 
     if problem.language_choices == 'C':
@@ -209,6 +210,32 @@ def compile(user_id,id):
                 gone, alive = psutil.wait_procs(process,timeout=2)
 
             output = output+str(outcome)
+    
+    elif problem.language_choices == 'Oracle':
+        
+        codefile_path = file_path+".sql"
+        code_f = open(codefile_path,'w')
+        code_f.write(problem.source_code)
+        code_f.close()
+
+        f = open(codefile_path,'r')
+        out = subprocess.Popen(cmd,shell=True,stdin = f,\
+            stdout=subprocess.PIPE,stderr=subprocess.PIPE,\
+                errors='st')
+        try:
+            outcome,error=out.communicate(timeout = time)
+        
+        except subprocess.TimeoutExpired as e:
+            process = psutil.Process(out.pid).children(recursive=True)
+            for proc in process:
+                proc.kill()
+            gone, alive = psutil.wait_procs(process,timeout=2)
+        
+        f.close()
+        output = output+str(outcome)
+
+
+
     """
     with tempfile.TemporaryDirectory(prefix='Codes',dir=BASE_DIR) as f:
 
