@@ -20,19 +20,23 @@ from Teacher.tasks import *
 
 # Create your views here.
 
-class Course_list(LoginRequiredMixin, View):
+class Course_list(LoginRequiredMixin,PermissionRequiredMixin, View):
 
     login_url = 'moderator:login'
-
+    permission_required = ('moderator.view_course',)  
+    raise_exception = True
+    
     def get(self,request,*args,**kwargs):
         return render(request,'chartjs.html')
         
 
 
-class Submit(LoginRequiredMixin, View):
+class Submit(LoginRequiredMixin,PermissionRequiredMixin, View):
 
     login_url = 'moderator:login'
-
+    permission_required = ('student.add_input',)  
+    raise_exception = True
+    
     def get(self,request,*args,**kwargs):
         
         return render(request,"form-checkbox-radio.html")
@@ -59,9 +63,11 @@ class Submit(LoginRequiredMixin, View):
         return HttpResponse("success")
 
 
-class Exam_Detail(LoginRequiredMixin, View):
+class Exam_Detail(LoginRequiredMixin,PermissionRequiredMixin, View):
     
     login_url = 'moderator:login'
+    permission_required = ('teacer.view_exam',)  
+    raise_exception = True
 
     def get(self,request,*args,**kwargs):
         e = Exam.objects.get(id = kwargs["id"])
@@ -70,9 +76,11 @@ class Exam_Detail(LoginRequiredMixin, View):
         return render(request,'table-basic.html',{'problems':problems})
 
 
-class Problem_list(LoginRequiredMixin, View): 
+class Problem_list(LoginRequiredMixin,PermissionRequiredMixin, View): 
     
     login_url = 'moderator:login'
+    permission_required = ('teacher.view_post',)  
+    raise_exception = True
 
     def get(self, request, *args, **kwargs):
            
@@ -84,9 +92,11 @@ class Problem_list(LoginRequiredMixin, View):
            
 
 
-class Problem_show(LoginRequiredMixin, View):
+class Problem_show(LoginRequiredMixin,PermissionRequiredMixin, View):
 
     login_url = 'moderator:login'
+    permission_required = ('teacher.view_question',)  
+    raise_exception = True
     
     def get(self,request,*args,**kwargs):
         """
@@ -109,9 +119,11 @@ class Problem_show(LoginRequiredMixin, View):
 
         return render(request,'temporary.html',context)
 
-class Exam_list(LoginRequiredMixin, View):
+class Exam_list(LoginRequiredMixin,PermissionRequiredMixin, View):
 
     login_url = 'moderator:login'
+    permission_required = ('teacher.view_exam',)  
+    raise_exception = True
     
     def get(self,request,*args,**kwargs):
 
@@ -121,9 +133,11 @@ class Exam_list(LoginRequiredMixin, View):
         return render(request,'table-datatable.html',context)
         
 
-class Mark(LoginRequiredMixin, View):
+class Mark(LoginRequiredMixin,PermissionRequiredMixin, View):
 
     login_url = 'moderator:login'
+    permission_required = ('teacher.view_marks',)  
+    raise_exception = True
 
     def get(self,request,*args,**kwargs):
         context = {

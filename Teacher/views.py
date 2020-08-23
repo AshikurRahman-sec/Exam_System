@@ -29,10 +29,11 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 
+class Q_Create(LoginRequiredMixin,PermissionRequiredMixin, View):
 
-class Q_Create(LoginRequiredMixin, View):
-
-    login_url = 'moderator:login'  
+    login_url = 'moderator:login'
+    permission_required = ('teacher.add_post',)  
+    raise_exception = True
     
     def get(self, request, *args, **kwargs):
            
@@ -69,10 +70,11 @@ class Q_Create(LoginRequiredMixin, View):
         return HttpResponseRedirect(reverse('moderator:home'))
 
 
-class Exam_create(LoginRequiredMixin, View):
+class Exam_create(LoginRequiredMixin,PermissionRequiredMixin, View):
     
     login_url = 'moderator:login' 
-
+    permission_required = ('teacher.add_exam',)  
+    raise_exception = True
     def get(self,request,*args,**kwargs):
         
         context = {
@@ -96,10 +98,11 @@ class Exam_create(LoginRequiredMixin, View):
         }
         return render(request,"table-datatable.html",context)
 
-class Report_Show(LoginRequiredMixin, View):
+class Report_Show(LoginRequiredMixin,PermissionRequiredMixin, View):
 
     login_url = 'moderator:login' 
-
+    permission_required = ('teacher.add_result',)  
+    raise_exception = True
     def get(self,request,*args,**kwargs):
         r = Result.objects.get(id = kwargs["id"])
         f = open(BASE_DIR+"\\"+"templates"+"\\"+"report.html","w")
@@ -107,9 +110,11 @@ class Report_Show(LoginRequiredMixin, View):
         f.close()
         return render(request,"report.html")
 
-class Result_Show(LoginRequiredMixin, View):
+class Result_Show(LoginRequiredMixin,PermissionRequiredMixin, View):
 
-    login_url = 'moderator:login' 
+    login_url = 'moderator:login'
+    permission_required = ('teacher.add_result',)  
+    raise_exception = True 
 
     def get(self,request,*args,**kwargs):
        
@@ -119,10 +124,11 @@ class Result_Show(LoginRequiredMixin, View):
         }
         return render(request,"result_status.html",context)
         
-class Take_Attendence(LoginRequiredMixin, View):
+class Take_Attendence(LoginRequiredMixin,PermissionRequiredMixin, View):
     
     login_url = 'moderator:login'
-
+    permission_required = ('teacher.add_attendence',)  
+    raise_exception = True
     def get(self,request,*args,**kwargs):
         
         return render(request,"attendence.html",context)
@@ -142,9 +148,10 @@ class Take_Attendence(LoginRequiredMixin, View):
 
         return render(request,'course_attendence.html',context)
 
-class Attendence(LoginRequiredMixin, View):
+class Attendence(LoginRequiredMixin,PermissionRequiredMixin, View):
     login_url = 'moderator:login'
-    
+    permission_required = ('teacher.add_attendence',)  
+    raise_exception = True
     def get(self,request,*args,**kwargs):
         
         return render(request,'course.html')
