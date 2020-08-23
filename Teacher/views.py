@@ -84,12 +84,13 @@ class Exam_create(LoginRequiredMixin,PermissionRequiredMixin, View):
         return render(request,'form-pickers.html',context)
     
     def post(self,request,*args,**kwargs):
-
+        
         e = Exam()
         e.exam_name = request.POST.get("examename")
         e.examainer_name = request.POST.get("examiner_name")
         e.exam_starting_time = request.POST.get("starting")+" "+request.POST.get("starting_time")
-        e.exam_ending_time = e.exam_starting_time
+        t = datetime.strptime(request.POST['duration'],'%H:%M:%S')
+        e.exam_ending_time = str(datetime.strptime(e.exam_starting_time, '%Y-%m-%d %H:%M:%S') +timedelta(hours=t.hour, minutes=t.minute, seconds=t.second)
         e.save()
         for i in request.POST.getlist("my_multi_select1[]"):
             e.problem.add(Post.objects.get(Problem_Name = i))
