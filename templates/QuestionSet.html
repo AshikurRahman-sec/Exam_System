@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Question</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+
+    <style>
+        .mul-select {
+            width: 100%;
+        }
+    </style>
+
+    <br>
+
+
+    <form action="{% url 'moderator:teacher:create' 'question_set' %}" method="POST">
+            
+        {% csrf_token %}
+        <div class="container-fluid h-100 bg-light text-dark">
+
+            <div class="row justify-content-center align-items-center">
+
+
+
+
+
+
+                <div class="form-group">
+                    <br><br>
+                    <h4>Select Part</h4>
+                    <select class="form-control input-sm" id="sel3" name = "part">
+                        <option value = "A">A</option>
+                        <option valeu = "B">B</option>
+                    </select>
+                </div>
+
+
+            </div>
+
+
+
+
+            <br>
+
+
+
+            <div class="row justify-content-center align-items-center h-100">
+
+
+
+
+
+
+
+                <div class="col col-sm-6 col-md-6 col-lg-4 col-xl-4">
+
+
+                    <div class="form-group">
+                        <h4>Question No</h4>
+                        <input name = "no" class="form-control" id="inputdefault" type="text">
+                    </div>
+
+                    <h4>Select MCQ questions</h4>
+
+                    <div class="form-group">
+                        <select class="mul-select" multiple="true" name="multiple">
+                                {% for i in multichoices %}
+                                <option value = "{{i}}">{{i}}</option>
+                                {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+
+            <br>
+
+
+            <div class="row justify-content-center align-items-center h-100">
+                <div class="col col-sm-6 col-md-6 col-lg-4 col-xl-4">
+                    <h4>Select Descriptive questions</h4>
+                    <div class="form-group">
+                        <select class="mul-select" multiple="true" name = "descriptive">
+                            {% for i in description %}
+                            <option value = "{{i}}">{{i}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row justify-content-center align-items-center h-100">
+
+                <div class="col col-sm-6 col-md-6 col-lg-4 col-xl-4">
+                    <h4>Select Coding questions</h4>
+                    <div class="form-group">
+                        <select class="mul-select" multiple="true" name = "code">
+                            {% for i in code %}
+                            <option value = "{{i}}">{{i}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row justify-content-center align-items-center h-100">
+
+                <div class="col col-sm-6 col-md-6 col-lg-4 col-xl-4">
+                    <h4>Select TrueFalse questions</h4>
+                    <div class="form-group">
+                        <select class="mul-select" multiple="true" name = "truefalse">
+                            {% for i in truefalse %}
+                            <option value = "{{i}}">{{i}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <button type="submit" position="center" class="btn btn-outline-info btn-lg rounded-2"
+                >Create</button>
+
+
+
+        </div>
+    </form>
+   
+    <script>
+        $(document).ready(function () {
+            $(".mul-select").select2({
+                placeholder: "Select Questions", //placeholder
+                tags: true,
+                tokenSeparators: ['/', ',', ';', " "]
+            });
+        })
+    </script>
+</body>
+
+</html>
