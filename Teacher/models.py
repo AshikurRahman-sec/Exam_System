@@ -11,19 +11,23 @@ class Title(models.Model):
 
 
 class Description(models.Model):
+	
 	title = models.ForeignKey(Title,on_delete=models.CASCADE)
 	answer = models.TextField(blank = True,null = True)
+	marks = models.IntegerField(blank = True,null = True,default = 10)
 
 	def __str__ (self):
 		return self.title.title
 
 class Multiple_Choice(models.Model):
+	
 	title = models.ForeignKey(Title,on_delete=models.CASCADE)
 	option1 = models.CharField(max_length=500,blank=True,null=True)
 	option2 = models.CharField(max_length=500,blank=True,null=True)
 	option3 = models.CharField(max_length=500,blank=True,null=True)
 	option4 = models.CharField(max_length=500,blank=True,null=True)
 	answer = models.CharField(max_length=500,blank=True,null=True)
+	marks = models.IntegerField(blank = True,null = True,default = 10)
 
 	def __str__ (self):
 		return self.title.title
@@ -32,14 +36,16 @@ class Code(models.Model):
 	title = models.ForeignKey(Title,on_delete=models.CASCADE)
 	Code = models.TextField(blank = True,null= True)
 	answer = models.TextField(blank = True,null= True)
+	marks = models.IntegerField(blank = True,null = True,default = 10)
 
 	def __str__ (self):
 		return self.title.title
 
 class True_False(models.Model):
 	title = models.ForeignKey(Title,on_delete=models.CASCADE)
-	Statements = models.CharField(max_length=500,blank=True,null=True)
 	answer = models.CharField(max_length=500,blank=True,null=True)
+	marks = models.IntegerField(blank = True,null = True,default = 10)
+	
 	
 	def __str__ (self):
 		return self.title.title
@@ -58,7 +64,7 @@ class Question(models.Model):
 class Question_Set(models.Model):
 	course = models.ForeignKey('Moderator.Course',on_delete=models.CASCADE)
 	title = models.CharField(max_length=20,null= True,blank= True)
-	questions = models.ForeignKey(Question,on_delete=models.CASCADE)
+	questions = models.ManyToManyField(Question)
 	date_time = models.DateTimeField(auto_now_add=True)
 
 	def __str__(self):
