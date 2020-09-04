@@ -15,28 +15,45 @@ from django.core.files.storage import FileSystemStorage
 from datetime import datetime, timedelta, time
 from Moderator.models import *
 from Teacher.models import *
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
 from Teacher.tasks import *
+from django.contrib.auth.models import Group
 
 # Create your views here.
 
-class Course_list(LoginRequiredMixin,PermissionRequiredMixin, View):
-
+class Student_Home(LoginRequiredMixin,View):
     login_url = 'moderator:login'
-    permission_required = ('moderator.view_course',)  
+
+    def get(self,request,*args,**kwargs):
+        return render(request,'student-page.html')  
+
+class Course_list(LoginRequiredMixin,UserPassesTestMixin, View):
+
+    login_url = 'moderator:login'  
     raise_exception = True
     
+    def test_func(self):
+        g = self.request.user.groups.all()
+        return g.name == 'Student' or g.name == 'Teacher'
+    
+    def handle_no_permission(self):
+        return HttpResponse ('you have no permission')
+
     def get(self,request,*args,**kwargs):
         return render(request,'chartjs.html')
         
+class Acm_Problem_Submit(LoginRequiredMixin,UserPassesTestMixin, View):
 
-
-class Submit(LoginRequiredMixin,PermissionRequiredMixin, View):
-
-    login_url = 'moderator:login'
-    permission_required = ('student.add_input',)  
+    login_url = 'moderator:login' 
     raise_exception = True
     
+    def test_func(self):
+        g = self.request.user.groups.all()[0]
+        return g.name == 'Student' or g.name == 'Teacher'
+    
+    def handle_no_permission(self):
+        return HttpResponse ('you have no permission')
+
     def get(self,request,*args,**kwargs):
         
         return render(request,"form-checkbox-radio.html")
@@ -52,7 +69,7 @@ class Submit(LoginRequiredMixin,PermissionRequiredMixin, View):
         ob.source_code = request.POST["source_code"]
         ob.language_choices = request.POST["language"]
         
-
+        print(Post.objects.all())
         ob.problem = Post.objects.get(Problem_Name = request.POST["problem_name"])
         ob.save()
 
@@ -62,12 +79,58 @@ class Submit(LoginRequiredMixin,PermissionRequiredMixin, View):
         compile.delay(user_id,id)
         return HttpResponse("success")
 
-
-class Exam_Detail(LoginRequiredMixin,PermissionRequiredMixin, View):
+class Exam_Question_Submit(View):
     
-    login_url = 'moderator:login'
-    permission_required = ('teacer.view_exam',)  
+    def get(self,request,*args,**kwargs):
+
+        question_set = Question_Set.objects.get(title=self.kwargs["q_set_title"])
+        question = question_set.questions.get(no=self.kwargs["no"])
+        category = request.GET.get('category')
+
+        context = {
+            'question_set': question_set,
+            'question': question
+        }
+
+
+        return render(request,"answer-editor.html",context)
+
+    def post(self,request,*args,**kwargs):
+        
+        s,created = Student.objects.get_or_create(student = request.user)
+        c = Course.objects.get(title=request.POST["q_set"])
+        q_set,created = S_question_set.objects.get_or_create(course = c,title=request.POST['q_title'])
+
+        q,created = S_question.objects.get_or_create(no = request.POST['q_no'], part = request.POST['part'])
+
+        if request.GET.get('category') == "description":
+            d = S_description.objects.create(answer = request.POST['answer'],serial=request.POST['q_id'])
+            q.description.add(d)
+        if request.GET.get('category') == "multiple":
+            d = S_multiple_choice.objects.create(answer = request.POST['answer'],serial=request.POST['q_id'])
+            q.multipl.add(d)
+        if request.GET.get('category') == "code":
+            d = S_code.objects.create(answer = request.POST['answer'],serial=request.POST['q_id'])
+            q.code.add(d)
+        if request.GET.get('category') == "truefalse":
+            d = S_truefalse.objects.create(answer = request.POST['answer'],serial=request.POST['q_id'])
+            q.truefalse.add(d)
+
+        q_set.questions.add(q)
+        s.question_set.add(q_set)
+        return render(request,"answer-editor.html")
+        
+class Exam_Detail(LoginRequiredMixin,UserPassesTestMixin, View):
+    
+    login_url = 'moderator:login' 
     raise_exception = True
+    
+    def test_func(self):
+        g = self.request.user.groups.all()
+        return g.name == 'Student' or g.name == 'Teacher'
+    
+    def handle_no_permission(self):
+        return HttpResponse ('you have no permission')
 
     def get(self,request,*args,**kwargs):
         e = Exam.objects.get(id = kwargs["id"])
@@ -75,12 +138,23 @@ class Exam_Detail(LoginRequiredMixin,PermissionRequiredMixin, View):
         print(e.problem.all())
         return render(request,'table-basic.html',{'problems':problems})
 
-
-class Problem_list(LoginRequiredMixin,PermissionRequiredMixin, View): 
+class Problem_list(LoginRequiredMixin,UserPassesTestMixin, View): 
     
-    login_url = 'moderator:login'
-    permission_required = ('teacher.view_post',)  
+    login_url = 'moderator:login'  
     raise_exception = True
+    
+    def test_func(self):
+
+        g = self.request.user.groups.filter(name = 'Student') | self.request.user.groups.filter(name = 'Teacher')
+
+        if g:
+            return True
+        else:
+            return False
+        
+    
+    def handle_no_permission(self):
+        return HttpResponse ('you have no permission')
 
     def get(self, request, *args, **kwargs):
            
@@ -90,22 +164,50 @@ class Problem_list(LoginRequiredMixin,PermissionRequiredMixin, View):
 
         return render(request,'table-basic.html',context)
            
-
-
-class Problem_show(LoginRequiredMixin,PermissionRequiredMixin, View):
-
-    login_url = 'moderator:login'
-    permission_required = ('teacher.view_question',)  
+class Exam_Problem_Show(LoginRequiredMixin,UserPassesTestMixin, View):
+    
+    login_url = 'moderator:login'  
     raise_exception = True
     
+    def test_func(self):
+        g = self.request.user.groups.filter(name = 'Student') | self.request.user.groups.filter(name = 'Teacher')
+
+        if g and self.request.user.is_superuser:
+            return True
+        else:
+            return False
+    
+    def handle_no_permission(self):
+        return HttpResponse ('you have no permission')
+
     def get(self,request,*args,**kwargs):
-        """
+        
+        q_set = Question_Set.objects.all()[0]
+        context = {
+            'q_set': q_set,
+            'questions': q_set.questions.all()
+        }
+
+        return render(request,'answer_sheet.html',context)
+
+class Acm_Problem_show(LoginRequiredMixin,UserPassesTestMixin, View):
+    
+    login_url = 'moderator:login'  
+    raise_exception = True
+    
+    def test_func(self):
+        g = self.request.user.groups.all()
+        return g[0].name == 'Student' or g[0].name == 'Teacher'
+    
+    def handle_no_permission(self):
+        return HttpResponse ('you have no permission')
+
+    def get(self,request,*args,**kwargs):
         context={
             'problem_id' : Post.objects.get(id = kwargs['id'])
         }
         
-          """
-
+        
         q_set = Question_Set.objects.all()[0]
         q = q_set.questions
         context = {
@@ -115,16 +217,23 @@ class Problem_show(LoginRequiredMixin,PermissionRequiredMixin, View):
             'truefalse':q.truefalse.all(),
             'code':q.code.all()
         }
+        
+        
+        #return render(request,'temporary.html',context)
+        return render(request,'blank-page.html',context)
 
+class Exam_list(LoginRequiredMixin,UserPassesTestMixin, View):
 
-        return render(request,'temporary.html',context)
-
-class Exam_list(LoginRequiredMixin,PermissionRequiredMixin, View):
-
-    login_url = 'moderator:login'
-    permission_required = ('teacher.view_exam',)  
+    login_url = 'moderator:login' 
     raise_exception = True
     
+    def test_func(self):
+        g = self.request.user.groups.all()
+        return g.name == 'Student' or g.name == 'Teacher'
+    
+    def handle_no_permission(self):
+        return HttpResponse ('you have no permission')
+
     def get(self,request,*args,**kwargs):
 
         context = {
@@ -132,12 +241,17 @@ class Exam_list(LoginRequiredMixin,PermissionRequiredMixin, View):
         }
         return render(request,'table-datatable.html',context)
         
+class Mark(LoginRequiredMixin,UserPassesTestMixin, View):
 
-class Mark(LoginRequiredMixin,PermissionRequiredMixin, View):
-
-    login_url = 'moderator:login'
-    permission_required = ('teacher.view_marks',)  
+    login_url = 'moderator:login' 
     raise_exception = True
+    
+    def test_func(self):
+        g = self.request.user.groups.all()
+        return g.name == 'Student' or g.name == 'Teacher'
+    
+    def handle_no_permission(self):
+        return HttpResponse ('you have no permission')
 
     def get(self,request,*args,**kwargs):
         context = {
