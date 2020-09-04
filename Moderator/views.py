@@ -4,10 +4,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse,reverse_lazy
 from .models import *
 from django.contrib.auth import authenticate, login,logout
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
 from django.contrib.auth.models import Group
-my_group = Group.objects.get(name='my_group_name') 
-my_group.user_set.add(your_user)
 
 
 
@@ -21,7 +19,6 @@ class Home(View):
     template_name = 'home.html'
     def get(self,request,*args,**kwargs):
         return render(request,self.template_name)
-
 
 class Create_Account(View):
     #form_class = MyForm
@@ -43,22 +40,24 @@ class Create_Account(View):
         
         if request.POST['select'] == 'student':
             u.is_student = True
-            my_group = Group.objects.get(name='student')
+            my_group = Group.objects.get(name='Student')
+            print(my_group.name,"student")
         else:
-            my_group = Group.objects.get(name='teacher')
-             u.is_teacher = True 
+            my_group = Group.objects.get(name='Teacher')
+            print(my_group.name,"teacher")
+            u.is_teacher = True 
             
         u.save()
         user = authenticate(username=request.POST['username'], password=request.POST['pass'])
         login(request, user)
-        my_group.user_set.add(user)
+        #my_group.user_set.add(user)
+        user.groups.add(my_group)
         return HttpResponseRedirect(reverse("moderator:home")) 
 
         """form = self.form_class(request.POST)
         if form.is_valid():
             # <process form cleaned data>
             return HttpResponseRedirect('/success/')"""
-
 
 class LoginView(View):
     
@@ -111,7 +110,6 @@ class LoginView(View):
 
             return redirect(reverse('profile'))"""
 
-
 class Signout(View):
     #form_class = MyForm
     #initial = {'key': 'value'}
@@ -133,7 +131,6 @@ class Signout(View):
             # <process form cleaned data>
             return HttpResponseRedirect('/success/')
         return render(request, self.template_name, {'form': form})"""
-
 
 class About(LoginRequiredMixin, View):
     #form_class = MyForm
@@ -167,3 +164,77 @@ class Group_View(LoginRequiredMixin, View):
             g.permissions.add(Permission.objects.get(name = i))
         
         return render(request,'home.html')
+
+class Moderator_Activity(LoginRequiredMixin, UserPassesTestMixin, View):
+
+    login_url = 'moderator:login' 
+    raise_exception = True
+    
+    def test_func(self):
+        g = self.request.user.groups.filter(name = 'Moderator').first()
+        if g or self.request.user.is_superuser:
+            return True
+    
+    def handle_no_permission(self):
+        return HttpResponse ('you have no permission')
+
+    def get(self,request,*args,**kwargs):
+        return render(request,'moderator-page.html')
+
+class Add_Section(LoginRequiredMixin, UserPassesTestMixin, View):
+
+    login_url = 'moderator:login' 
+    raise_exception = True
+    
+    def test_func(self):
+        g = self.request.user.groups.filter(name = 'Moderator').first()
+        if g or self.request.user.is_superuser:
+            return True
+    
+    def handle_no_permission(self):
+        return HttpResponse ('you have no permission')
+
+    def get(self,request,*args,**kwargs):
+        context = {
+            'courses':Course.objects.all()
+        }
+        return render(request,'create-section.html',context)
+
+    def post(self,request,*args,**kwargs):
+        
+        s = Section()
+        s.name = request.POST['section_name']
+        s.course = Course.objects.get(title = request.POST['course'])
+        s.save()
+        return HttpResponseRedirect(reverse("moderator:moderator")) 
+
+class Add_Course(LoginRequiredMixin, UserPassesTestMixin, View):
+
+    login_url = 'moderator:login' 
+    raise_exception = True
+    
+    def test_func(self):
+        g = self.request.user.groups.filter(name = 'Moderator').first()
+        if g or self.request.user.is_superuser:
+            return True
+    
+    def handle_no_permission(self):
+        return HttpResponse ('you have no permission')
+
+    def get(self,request,*args,**kwargs):
+
+        context ={
+            'teachers':User.objects.filter(is_teacher=True)
+        }
+        return render(request,'course_create.html',context)
+
+    def post(self,request,*args,**kwargs):
+        
+        c = Course()
+
+        c.title =request.POST['course_name']
+        c.teacher = User.objects.get(username = request.POST['teacher'])
+        c.save()
+        return HttpResponseRedirect(reverse("moderator:moderator"))
+
+
