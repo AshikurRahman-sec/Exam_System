@@ -12,7 +12,7 @@ def attendent(name):
 @register.simple_tag
 def exm(id):
     e = Exam_create.objects.get(id = id)
-    date_time = datetime.strptime(e.exam_starting_time, '%Y-%m-%d %H:%M:%S') - datetime.now())
+    date_time = datetime.strptime(e.exam_starting_time, '%Y-%m-%d %H:%M:%S') - datetime.now()
     return date_time
 
 #{% load product_tags %}
