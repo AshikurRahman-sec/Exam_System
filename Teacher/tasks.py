@@ -81,8 +81,9 @@ def compile(user_id,id):
     file_path = settings.MEDIA_ROOT+"\\"+"code_file"+"\\"+problem.title+"_"+str(problem.id)
      
     input_file_path = settings.MEDIA_ROOT+"\\"+"input"+"\\"+problem.title+".txt"
-
-    in_f = open(input_file_path,"r")
+    
+    if os.path.exists(input_file_path):
+        in_f = open(input_file_path,"r")
 
 
     if problem.language_choices == 'C':
@@ -209,6 +210,32 @@ def compile(user_id,id):
                 gone, alive = psutil.wait_procs(process,timeout=2)
 
             output = output+str(outcome)
+    
+    elif problem.language_choices == 'Oracle':
+        
+        codefile_path = file_path+".sql"
+        code_f = open(codefile_path,'w')
+        code_f.write(problem.source_code)
+        code_f.close()
+        cmd = "sqlplus -S system/orcl"
+        f = open(codefile_path,'r')
+        out = subprocess.Popen(cmd,shell=True,stdin = f,\
+            stdout=subprocess.PIPE,stderr=subprocess.PIPE,\
+                errors='st')
+        try:
+            outcome,error=out.communicate(timeout = 10)
+        
+        except subprocess.TimeoutExpired as e:
+            process = psutil.Process(out.pid).children(recursive=True)
+            for proc in process:
+                proc.kill()
+            gone, alive = psutil.wait_procs(process,timeout=2)
+        
+        f.close()
+        output = output+str(outcome)
+
+
+
     """
     with tempfile.TemporaryDirectory(prefix='Codes',dir=BASE_DIR) as f:
 
@@ -248,8 +275,8 @@ def compile(user_id,id):
                     output,error = out.communicate()
                     return HttpResponse(e)
     """
-    in_f.close()
-    
+    if os.path.exists(input_file_path):
+        in_f.close()
     
     r = Result()
     
@@ -264,13 +291,11 @@ def compile(user_id,id):
         f.close()
         testfile_path = settings.MEDIA_ROOT+"\\"+"testcase"+"\\"+problem.title+".txt"
         cmd = "fc "+outfile_path+" "+testfile_path
-        """
         out = subprocess.Popen(cmd,shell=True,stdin = subprocess.PIPE,\
                  stdout=subprocess.PIPE,stderr=subprocess.PIPE,\
                        errors='st')
         output,error=out.communicate()
         print("output2",output,"error2",error)
-        """
         comp = filecmp.cmp(outfile_path, testfile_path,shallow = False)
         if comp == True:
             r.answer = "accepted"
@@ -279,7 +304,6 @@ def compile(user_id,id):
 
     elif e:
         r.answer = "Time limit"
-
     first_file = settings.MEDIA_ROOT+"\\"+"output_file"+"\\"+problem.title+"_"+str(problem.id)+".txt"
     second_file = settings.MEDIA_ROOT+"\\"+"testcase"+"\\"+problem.title+".txt"
     working_path = settings.BASE_DIR+"\\"+"templates"+"\\"+"reports"
@@ -289,7 +313,5 @@ def compile(user_id,id):
     r.report = difflib.HtmlDiff().make_file(first_file_lines,second_file_lines,first_file,second_file)
 
     r.save()
-
 def exam_paper_judge():
     q_set = Question_Set.objects.get(id=id)
-    
