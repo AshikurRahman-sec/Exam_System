@@ -11,4 +11,7 @@ urlpatterns = [
     path('login/',LoginView.as_view(),name='login'),
     path('Create_Account/',Create_Account.as_view(),name='createaccount'),
     path('about_us/',About.as_view(),name='about'),
+    path('moderator/',Moderator_Activity.as_view(),name="moderator"),
+    path('createsection/',Add_Section.as_view(),name="addsection"),
+    path('createcourse/',Add_Course.as_view(),name="addcourse"),
 ] 
