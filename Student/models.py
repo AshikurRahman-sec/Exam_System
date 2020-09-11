@@ -1,3 +1,7 @@
+from django.db import models
+
+
+
 class Input(models.Model):
 	problem = models.ForeignKey('Teacher.Post',on_delete=models.CASCADE)
 	title = models.CharField(max_length=255,blank = True,null = True)
