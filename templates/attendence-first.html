@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Question</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+
+    <style>
+        .mul-select {
+            width: 100%;
+        }
+    </style>
+
+    <br>
+
+
+    <form action="" method="POST">
+
+        {% csrf_token %}
+        <div class="container-fluid h-100 bg-light text-dark">
+
+            <div class="row justify-content-center align-items-center">
+
+
+
+
+
+
+
+
+
+            </div>
+
+
+
+
+            <br>
+                     <br>
+                     <br>
+   <br>   <br>   <br>
+
+
+
+            <div class="row justify-content-center align-items-center h-100">
+
+
+
+
+
+
+
+                <div class="col col-sm-6 col-md-6 col-lg-4 col-xl-4">
+
+<h4>Create Attendence Sheet For Students</h4>
+                     <br>   <br>   <br>
+                    <div class="form-group">
+                        <h4>Course Name</h4>
+                        <input name = "course" class="form-control" id="inputdefault" type="text">
+                    </div>
+
+                    <h4>Select Students</h4>
+
+                    <div class="form-group">
+                        <select class="mul-select" multiple="true" name="students">
+                                {% for i in students %}
+                                <option >{{i}}</option>
+                                {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+
+            <br>
+   <br>   <br>   <br>
+
+
+
+
+
+
+            <button type="submit" position="center" class="btn btn-outline-info btn-lg rounded-2"
+                >Create Attendence</button>
+
+
+
+        </div>
+    </form>
+
+    <script>
+        $(document).ready(function () {
+            $(".mul-select").select2({
+                placeholder: "Select Students", //placeholder
+                tags: true,
+                tokenSeparators: ['/', ',', ';', " "]
+            });
+        })
+    </script>
+</body>
+
+</html>

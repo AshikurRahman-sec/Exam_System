@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+{% include 'nav.html' %}
+<html lang="en">
+
+<!-- Mirrored from thevectorlab.net/dashlab-v1.3/form-pickers.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Feb 2019 05:39:56 GMT -->
+
+<head>
+    {% load static %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Mosaddek">
+
+    <!--favicon icon-->
+    <link rel="icon" type="image/png" href="{%static '/img/favicon.html'%}">
+
+    <title>Basic Table</title>
+
+    <!--web fonts-->
+    <link href="http://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800" rel="stylesheet">
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
+
+    <!--bootstrap styles-->
+    <link href="{% static '/vendor/bootstrap/css/bootstrap.min.css'%}" rel="stylesheet">
+
+    <!--icon font-->
+    <link href="{% static '/vendor/font-awesome/css/font-awesome.min.css'%}" rel="stylesheet">
+    <link href="{% static '/vendor/dashlab-icon/dashlab-icon.css'%}" rel="stylesheet">
+    <link href="{% static '/vendor/simple-line-icons/css/simple-line-icons.css'%}" rel="stylesheet">
+    <link href="{% static '/vendor/themify-icons/css/themify-icons.css'%}" rel="stylesheet">
+    <link href="{% static '/vendor/weather-icons/css/weather-icons.min.css'%}" rel="stylesheet">
+
+    <!--custom scrollbar-->
+    <link href="{% static '/vendor/m-custom-scrollbar/jquery.mCustomScrollbar.css'%}" rel="stylesheet">
+
+
+    <!--jquery dropdown-->
+    <link href="{% static '/vendor/jquery-dropdown-master/jquery.dropdown.css'%}" rel="stylesheet">
+
+    <!--jquery ui-->
+    <link href="{% static '/vendor/jquery-ui/jquery-ui.min.css'%}" rel="stylesheet">
+
+    <!--iCheck-->
+    <link href="{% static '/vendor/icheck/skins/all.css'%}" rel="stylesheet">
+
+    <!--custom styles-->
+    <link href="{% static '/css/main.css'%}" rel="stylesheet">
+
+    <!--multiple select-->
+    <link href="{%static '/vendor/multi-select/css/multi-select.css'%}" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="../static/vendor/html5shiv.js"></script>
+    <script src="../static/vendor/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body class="fixed-nav leftnav-floating left-side-toggled">
+
+    <!--navigation : sidebar & header-->
+
+    <!--main content wrapper-->
+    <div class="content-wrapper">
+
+        <div class="container-fluid">
+
+            <!--page title-->
+            <!--  <div class="page-title mb-4 d-flex align-items-center">
+                <div class="mr-auto">
+                    <h4 class="weight500 d-inline-block pr-3 mr-3 border-right">Form Pickers</h4>
+                    <nav aria-label="breadcrumb" class="d-inline-block ">
+                        <ol class="breadcrumb p-0">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item"><a href="#">Forms</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Form Pickers</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>-->
+            <!--/page title-->
+
+            <!--date pickers-->
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="card card-shadow mb-4">
+                        <div class="card-header border-0">
+                            <div class="custom-title-wrap bar-primary">
+                                <div class="custom-title"> Student Registration for exam </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <form class="picker-form" action="{% url 'moderator:student:examregistration' %}"
+                                method="POST">
+                                {% csrf_token %}
+                                <div class="form-group row">
+                                    <label class="col-form-label col-lg-3 col-sm-12 ">Student Name</label>
+                                    <div class="col-lg-6 col-md-9 col-sm-12">
+                                        <!--
+                                        <input type="text" class="form-control date-picker-input" value="Select Date">
+                                         -->
+                                        <input type="text" name="name" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-form-label col-lg-3 col-sm-12 ">Year</label>
+                                    <div class="col-lg-6 col-md-9 col-sm-12">
+                                        <!--
+                                        <input type="text" class="form-control date-picker-input" value="Select Date">
+                                         -->
+                                        <input type="text" name="year" class="form-control">
+                                    </div>
+                                </div>
+
+
+
+
+
+                                <div class="form-group row">
+                                    <label class="col-form-label col-lg-3 col-sm-12 "> Select Semister</label>
+                                    <div class="col-lg-6 col-md-9 col-sm-12">
+
+                                        <select class="form-control" id="exampleFormControlSelect1" name="semister">
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                            <option>5</option>
+                                            <option>6</option>
+                                            <option>7</option>
+                                            <option>8</option>
+
+                                        </select>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group row">
+                                    <label class="col-form-label col-lg-3 col-sm-12 "> Select Department</label>
+                                    <div class="col-lg-6 col-md-9 col-sm-12">
+
+                                        <select class="form-control" id="exampleFormControlSelect1" name="department">
+                                            <option>CSE</option>
+                                            <option>EEE</option>
+                                            <option>CE</option>
+
+                                        </select> </div>
+                                </div>
+
+
+
+                                <div class="form-group row">
+                                    <label class="col-form-label col-lg-3 col-sm-12 ">Session</label>
+                                    <div class="col-lg-6 col-md-9 col-sm-12">
+                                        <!--
+                                        <input type="text" class="form-control date-picker-input" value="Select Date">
+                                         -->
+                                        <input type="text" name="session" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row mb-9">
+                                    <label class="col-form-label col-lg-3 col-sm-12 ">Current Semister <br> Courses <br>
+                                        you have <br> enrolled </label>
+                                    <div class="col-lg-8 col-md-9 col-sm-12">
+                                        <select multiple="multiple" class="multi-select" id="my_multi_select1"
+                                            name="my_multi_select1[]">
+                                            {% for i in courses%}
+                                            <option>{{i}}</option>
+                                    
+                                           {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+
+
+
+
+                                <div class="form-group row">
+
+                                    <label class="col-form-label col-lg-3 col-sm-12 ">Drop courses</label>
+
+                                    <br>
+
+                                    <div class="col-lg-6 col-md-9 col-sm-12">
+                                        <!--
+                                        <input type="text" class="form-control date-picker-input" value="Select Date">
+                                         -->
+                                        <input type="text" name="course1" placeholder="Drop Course Name"
+                                            class="form-control">
+                                        <br>
+                                        <input type="text" name="course2" placeholder="Drop Course Name"
+                                            class="form-control">
+                                        <br>
+                                        <input type="text" name="course3" placeholder="Drop Course Name"
+                                            class="form-control">
+
+                                        <br>
+                                        <h5>Remember , You can Take at most 3 drop courses in your current semister</h5>
+                                        <h5>If you don't have any drop course , keep these fields empty</h5>
+                                    </div>
+
+                                </div>
+
+
+
+
+                                <!--
+                                <div class="form-group row">
+                                    <label class="col-form-label col-lg-3 col-sm-12 ">Months & Date Only</label>
+                                    <div class="col-lg-6 col-md-9 col-sm-12">
+                                        <div class="input-group date dpMonths" data-date-viewmode="months" data-date-format="mm/yyyy" data-date="12-08-2017">
+                                            <input type="text" class="form-control" placeholder="03-07" aria-label="Right Icon" aria-describedby="dp-mdo">
+                                            <div class="input-group-append">
+                                                <button id="dp-mdo" class="btn btn-primary" type="button"><i class="fa fa-calendar f14"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group row">
+                                    <label class="col-form-label col-lg-3 col-sm-12 ">Helper Buttons</label>
+                                    <div class="col-lg-6 col-md-9 col-sm-12">
+                                        <div class="input-group date" id='helper-datepicker'>
+                                            <input type="text" class="form-control" value="02/25/2018">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-purple" type="button"><i class="fa fa-calendar f14"></i></button>
+                                            </div>
+                                        </div>
+                                        <span class="text-muted">
+                                             clear and today helper buttons added
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-form-label col-lg-3 col-sm-12 ">Date Range</label>
+                                    <div class="col-lg-6 col-md-9 col-sm-12">
+                                        <div class="input-group" data-date="12/07/2017" data-date-format="mm/dd/yyyy">
+                                            <input type="text" class="form-control rounded dpd1" name="from">
+                                            <span class="px-3 py-2">To</span>
+                                            <input type="text" class="form-control rounded dpd2" name="to">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-form-label col-lg-3 col-sm-12 ">Inline Piker</label>
+                                    <div class="col-lg-6 col-md-9 col-sm-12">
+                                        <div class="" id="inline-datepicker"></div>
+                                    </div>
+                                </div>
+                            -->
+                                <button type="submit" class="btn btn-primary">SUBMIT</button>
+                            </form>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <!--/date pickers-->
+
+            <!--datetime pickers-->
+            <!--
+            <div class="row">
+                
+                <div class="col-xl-12">
+                    <div class="card card-shadow mb-4">
+                        <div class="card-header border-0">
+                            <div class="custom-title-wrap bar-primary">
+                                <div class="custom-title">Bootstrap Datetime Picker</div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <form class="picker-form">
+                                <div class="form-group row">
+                                    <label class="col-form-label col-lg-3 col-sm-12 ">Default input Datetimepicker</label>
+                                    <div class="col-lg-6 col-md-9 col-sm-12">
+                                        <input type="text" value="2017-12-05 12:45" class="form_datetime form-control">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-form-label col-lg-3 col-sm-12 ">Component Datetimepicker </label>
+                                    <div class="col-lg-6 col-md-9 col-sm-12">
+                                        <div class="input-group date form_datetime-component">
+                                            <input type="text" class="form-control date-set" aria-label="Right Icon" aria-describedby="basic-addon12">
+                                            <div class="input-group-append">
+                                                <button  id="basic-addon12" class="btn btn-outline-secondary" type="button"><i class="fa fa-calendar f14"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-form-label col-lg-3 col-sm-12 ">Advance Datetimepicker</label>
+                                    <div class="col-lg-6 col-md-9 col-sm-12">
+                                        <div data-date="2017-12-21T15:25:00Z" class="input-group date form_datetime-adv">
+                                            <input type="text" class="form-control rounded mr-2" size="16">
+                                            <div class="input-group-btn">
+                                                <button type="button" class="btn btn-dark date-reset"><i class="fa fa-times"></i></button>
+                                                <button type="button" class="btn btn-purple date-set"><i class="fa fa-calendar f14"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-form-label col-lg-3 col-sm-12 ">Meridian Format</label>
+                                    <div class="col-lg-6 col-md-9 col-sm-12">
+                                        <div data-date="2017-12-21T15:25:00Z" class="input-group date form_datetime-meridian">
+                                            <input type="text" class="form-control rounded mr-2" size="16">
+                                            <div class="input-group-btn">
+                                                <button type="button" class="btn btn-dark date-reset"><i class="fa fa-times"></i></button>
+                                                <button type="button" class="btn btn-info date-set"><i class="fa fa-calendar f14"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="col-xl-12">
+                    <div class="card card-shadow mb-4">
+                        <div class="card-header border-0">
+                            <div class="custom-title-wrap bar-warning">
+                                <div class="custom-title"> Bootstrap Time Picker</div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <form class="picker-form">
+                                <div class="form-group row">
+                                    <label class="col-form-label col-lg-3 col-sm-12 ">Default Timepicker</label>
+                                    <div class="col-lg-6 col-md-9 col-sm-12">
+                                        <div class="input-group bootstrap-timepicker">
+                                            <input type="text" class="form-control timepicker-default rounded mr-3"
+                                                aria-label="Right Icon" aria-describedby="basic-addon15">
+                                            <span class="input-group-addon btn btn-primary" id="basic-addon15"><i
+                                                    class="fa fa-clock-o f14"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-form-label col-lg-3 col-sm-12 ">24hr Timepicker</label>
+                                    <div class="col-lg-6 col-md-9 col-sm-12">
+                                        <div class="input-group bootstrap-timepicker">
+                                            <input type="text" class="form-control timepicker-24 rounded mr-3"
+                                                aria-label="Right Icon" aria-describedby="basic-addon16">
+                                            <span class="input-group-addon btn btn-success" id="basic-addon16"><i
+                                                    class="fa fa-clock-o f14"></i></span>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        -->
+            <!--/datetime pickers-->
+
+            <!--color pickers-->
+            <!--
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="card card-shadow mb-4">
+                        <div class="card-header border-0">
+                            <div class="custom-title-wrap bar-primary">
+                                <div class="custom-title"> Bootstrap Color Picker</div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <form class="picker-form">
+
+                                <div class="form-group row">
+                                    <label class="col-form-label col-lg-3 col-sm-12 ">Simple usage </label>
+                                    <div class="col-lg-6 col-md-9 col-sm-12">
+                                        <input id="cp1" type="text" class="form-control input-lg" value=""/>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-form-label col-lg-3 col-sm-12 ">Setting the initial color  </label>
+                                    <div class="col-lg-6 col-md-9 col-sm-12">
+                                        <div id="cp2" class="input-group colorpicker-component mb-3" title="Using input value">
+                                            <input type="text" class="form-control input-lg" value="#328dff"/>
+                                            <div class="input-group-append">
+                                                <span class="input-group-addon btn btn-outline-secondary"><i></i></span>
+                                            </div>
+                                        </div>
+
+                                        <div id="cp3a" class="input-group colorpicker-component mb-3" data-color="#3dba6f"
+                                             title="Using data-color attribute in the colorpicker element">
+                                            <input type="text" class="form-control input-lg"/>
+                                            <div class="input-group-append">
+                                                <span class="input-group-addon btn btn-outline-secondary"><i></i></span>
+                                            </div>
+                                        </div>
+
+                                        <div id="cp3b" class="input-group colorpicker-component mb-3" title="Using data-color attribute in the input">
+                                            <input type="text" class="form-control input-lg" data-color="#fe413b"/>
+                                            <div class="input-group-append">
+                                                <span class="input-group-addon btn btn-outline-secondary"><i></i></span>
+                                            </div>
+                                        </div>
+
+                                        <div id="cp4" class="input-group colorpicker-component mb-3" title="Using color option">
+                                            <input type="text" class="form-control input-lg"/>
+                                            <div class="input-group-append">
+                                                <span class="input-group-addon btn btn-outline-secondary"><i></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="form-group row">
+                                    <label class="col-form-label col-lg-3 col-sm-12 ">Automatic format detection</label>
+                                    <div class="col-lg-6 col-md-9 col-sm-12">
+                                        <div id="cp5" class="input-group colorpicker-component" title="Using format option">
+                                            <input type="text" class="form-control input-lg" value="#fab63f"/>
+                                            <div class="input-group-append">
+                                                <span class="input-group-addon btn btn-outline-secondary"><i></i></span>
+                                            </div>
+                                        </div>
+                                        <small>
+                                            Whenever the <code>format</code> option is <var>false</var> (default), the first parsed color format will be
+                                            detected and used as default, but when the option equals <var>null</var> or empty string,
+                                            the format is recalculated every time.
+                                        </small>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group row">
+                                    <label class="col-form-label col-lg-3 col-sm-12 ">Force a format</label>
+                                    <div class="col-lg-6 col-md-9 col-sm-12">
+                                        <div id="cp5b" class="input-group colorpicker-component" title="Using format option">
+                                            <input type="text" class="form-control input-lg" value="#31c3b2"/>
+                                            <div class="input-group-append">
+                                                <span class="input-group-addon btn btn-outline-secondary"><i></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group row">
+                                    <label class="col-form-label col-lg-3 col-sm-12 ">Horizontal mode </label>
+                                    <div class="col-lg-6 col-md-9 col-sm-12">
+                                        <div id="cp6" class="input-group colorpicker-component" title="Using horizontal option">
+                                            <input type="text" class="form-control input-lg" value="#b756ff"/>
+                                            <div class="input-group-append">
+                                                <span class="input-group-addon btn btn-outline-secondary"><i></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        -->
+            <!--/color pickers-->
+
+        </div>
+
+        <!--footer-->
+        <footer class="sticky-footer">
+            <div class="container">
+                <div class="text-center">
+                    <small>Copyright &copy; VectorLab 2018</small>
+                </div>
+            </div>
+        </footer>
+        <!--/footer-->
+    </div>
+    <!--/main content wrapper-->
+
+    <!--right sidebar-->
+    <div class="right-sidebar" id="right_side_bar">
+        <div class="card border-0">
+            <div class="card-body pb-0">
+                <!--close toggle-->
+                <a href="javascript:;" class="right_side_toggle float-right close-sidebar-icon">
+                    <i class=" ti-shift-right"> </i>
+                </a>
+                <!--/close toggle-->
+            </div>
+            <div class="card-body pt-2">
+
+                <div class="right-widget">
+                    <div class="custom-title-wrap bar-primary mb-4">
+                        <div class="custom-title">Today's Activity</div>
+                    </div>
+
+                    <ul class="list-unstyled base-timeline">
+                        <li class="time-dot-primary">
+                            <div class="base-timeline-info">
+                                <a href="#">John123</a> Successfully purchased item#26
+                            </div>
+                            <small class="text-muted">
+                                28 mins ago
+                            </small>
+                        </li>
+                        <li class="time-dot-danger">
+                            <div class="base-timeline-info">
+                                <a href="#" class="text-danger">Farnandez</a> placed the order for accessories
+                            </div>
+                            <small class="text-muted">
+                                2 days ago
+                            </small>
+                        </li>
+                        <li class="time-dot-purple">
+                            <div class="base-timeline-info">
+                                User <a href="#" class="text-purple">Lisa Maria</a> checked out from the market
+                            </div>
+                            <small class="text-muted">
+                                12 mins ago
+                            </small>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="right-widget">
+                    <div class="custom-title-wrap bar-danger mb-4">
+                        <div class="custom-title">Active Users</div>
+                    </div>
+
+                    <ul class="list-unstyled mb-0 list-widget">
+                        <li class="cursor">
+                            <div class="media mb-4">
+                                <div class="st-alphabet mr-3">
+                                    <img class="rounded-circle" src="{% static '/img/avatar/avatar1.jpg'%}" alt=" ">
+                                    <span class="status bg-success"></span>
+                                </div>
+                                <div class="media-body ">
+                                    <div class="float-left">
+                                        <h6 class="text-uppercase mb-0">shirley hoe</h6>
+                                        <span class="text-muted">Online</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="cursor">
+                            <div class="media mb-4">
+                                <div class="st-alphabet mr-3">
+                                    <img class="rounded-circle" src="{% static '/img/avatar/avatar2.jpg'%}" alt=" ">
+                                    <span class="status bg-warning"></span>
+                                </div>
+                                <div class="media-body ">
+                                    <div class="float-left">
+                                        <h6 class="text-uppercase mb-0">james alexender</h6>
+                                        <span class="text-muted">Screaming...</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="cursor">
+                            <div class="media mb-4">
+                                <div class="st-alphabet mr-3">
+                                    <img class="rounded-circle" src="{% static '/img/avatar/avatar3.jpg'%}" alt=" ">
+                                    <span class="status bg-info"></span>
+                                </div>
+                                <div class="media-body">
+                                    <div class="float-left">
+                                        <h6 class="text-uppercase mb-0">ursula sitorus</h6>
+                                        <span class="text-muted">Start Exploring</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="cursor">
+                            <div class="media mb-3">
+                                <div class="st-alphabet mr-3">
+                                    <img class="rounded-circle" src="{%static '/img/avatar/avatar4.jpg'%}" alt=" ">
+                                    <span class="status bg-danger"></span>
+                                </div>
+                                <div class="media-body">
+                                    <div class="float-left">
+                                        <h6 class="text-uppercase mb-0">jonna pinedda</h6>
+                                        <span class="text-muted">Busy</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="right-widget">
+
+                    <div class="custom-title-wrap bar-success mb-4">
+                        <div class="custom-title">Notification</div>
+                    </div>
+
+                    <div>
+                        <div class="dropdown-divider mb-0"></div>
+                        <a class="nav-link border-bottom px-0 py-3" href="#">
+                            <span class="text-primary">
+                                <span class="weight700 f12">
+                                    <i class="vl_bell weight600 pr-2"></i>Weekly Update</span>
+                            </span>
+                            <span class="small float-right text-muted">03:14 AM</span>
+
+                            <div class="text-dark f12">
+                                This week project update report generated. All team members are requested to check the
+                                updates
+                            </div>
+                        </a>
+
+                        <a class="nav-link border-bottom px-0 py-3" href="#">
+                            <span class="text-danger">
+                                <span class="weight700 f12">
+                                    <i class="vl_Download-circle weight600 pr-2"></i>Server Error</span>
+                            </span>
+                            <span class="small float-right text-muted">10:34 AM</span>
+
+                            <div class="text-dark f12">
+                                Unexpectedly server response stop. Responsible members are requested to fix it soon
+                            </div>
+                        </a>
+
+                        <a class="nav-link border-bottom px-0 py-3" href="#">
+                            <span class="text-success">
+                                <span class="weight700 f12">
+                                    <i class="vl_screen weight600 pr-2"></i>Monthly Meeting</span>
+                            </span>
+                            <span class="small float-right text-muted">12:30 AM</span>
+
+                            <div class="text-dark f12">
+                                Our monthly meeting will be held on tomorrow sharp 12:30. All members are requested to
+                                attend this meeting.
+                            </div>
+                        </a>
+
+                        <div class="text-center mt-3">
+                            <a class="nav-link px-0" href="#">View all notification</a>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!--/right sidebar-->
+
+    <script src="{% static '/vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static '/vendor/jquery-ui/jquery-ui.min.js'%}"></script>
+    <script src="{% static '/vendor/popper.min.js'%}"></script>
+    <script src="{% static '/vendor/bootstrap/js/bootstrap.min.js'%}"></script>
+    <script src="{% static '/vendor/jquery-dropdown-master/jquery.dropdown.js'%}"></script>
+    <script src="{% static '/vendor/m-custom-scrollbar/jquery.mCustomScrollbar.concat.min.js'%}"></script>
+    <script src="{% static '/vendor/icheck/skins/icheck.min.js'%}"></script>
+
+    <!--multiple select-->
+    <script src="{%static '/vendor/multi-select/js/jquery.multi-select.js'%}"></script>
+    <script src="{%static '/vendor/multi-select/js/jquery.quicksearch.js'%}"></script>
+    <!--init multiple select-->
+    <script src="{%static '/vendor/js-init/init-multiple-select.js'%}"></script>
+
+    <!--[if lt IE 9]>
+    <script src="../static/vendor/modernizr.js"></script>
+    <![endif]-->
+
+    <!--basic scripts initialization-->
+    <script src="{% static '/js/scripts.js'%}"></script>
+</body>
+
+<!-- Mirrored from thevectorlab.net/dashlab-v1.3/form-pickers.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Feb 2019 05:40:07 GMT -->
+
+</html>
