@@ -9,7 +9,6 @@ class Title(models.Model):
 	def __str__(self):
 		return self.title
 
-
 class Description(models.Model):
 	
 	title = models.ForeignKey(Title,on_delete=models.CASCADE)
@@ -88,8 +87,6 @@ class Post(models.Model):
 	def __str__ (self):
 		return self.Problem_Name
 
-
-
 class Result(models.Model):
 
 	problem = models.ForeignKey('Student.Input',on_delete=models.CASCADE)
@@ -98,7 +95,6 @@ class Result(models.Model):
 
 	def __str__ (self):
 		return "result"
-
 
 class Exam(models.Model):
 	
@@ -111,10 +107,14 @@ class Exam(models.Model):
 	def __str__(self):
 		return exam_name
 
-
-class Attendance(models.Model):
+class Take_Attendance(models.Model):
     student = models.ForeignKey('Moderator.User', on_delete=models.DO_NOTHING)
     course = models.ForeignKey('Moderator.Course', on_delete=models.DO_NOTHING)
     date = models.DateField(auto_now_add=True)
+
+class Attendance(models.Model):
+	student = models.ManyToManyField('Moderator.User')
+	course = models.ForeignKey('Moderator.Course', on_delete=models.DO_NOTHING)
+	date = models.DateField(auto_now_add=True)
 
 
