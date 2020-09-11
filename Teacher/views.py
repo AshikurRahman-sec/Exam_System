@@ -357,3 +357,28 @@ class Attendence(LoginRequiredMixin,UserPassesTestMixin, View):
             return(request,'attedence_list.html',context)
         else:
             return HttpResponse('you are permitted this course')
+        
+class Attendance_List(LoginRequiredMixin,UserPassesTestMixin, View):
+
+    login_url = 'moderator:login'  
+    raise_exception = True
+
+    def test_func(self):
+        g = self.request.user.groups.filter(name = 'Moderator') | self.request.user.groups.filter(name = 'Teacher')
+        if g or self.request.user.is_superuser:
+            return True
+        else:
+            return False
+    
+    def handle_no_permission(self):
+        
+        return HttpResponse ('you have no permission')
+
+    def get(self,request,*args,**kwargs):
+        
+        context = {
+            'attendences':Attendance.objects.all()
+            }
+            
+        return render(request,'course-attendence.html',context)
+        
