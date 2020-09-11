@@ -1,7 +1,3 @@
-from django.db import models
-
-# Create your models here.
-
 class Input(models.Model):
 	problem = models.ForeignKey('Teacher.Post',on_delete=models.CASCADE)
 	title = models.CharField(max_length=255,blank = True,null = True)
@@ -75,6 +71,21 @@ class S_question_set(models.Model):
 		return self.course.title
 
 class Student(models.Model):
-	student = models.OneToOneField('Moderator.User',on_delete=models.CASCADE)
+	student = models.ForeignKey('Moderator.User',on_delete=models.CASCADE)
 	question_set = models.ManyToManyField(S_question_set)
 	mark = models.PositiveIntegerField(blank=True, null=True)
+
+	def __str__(self):
+		return "mark"+self.student.username
+
+class Student_Exam_Registration(models.Model):
+	course = models.ManyToManyField('Moderator.Course')
+	session = models.PositiveIntegerField(blank=True, null=True)
+	student = models.ForeignKey('Moderator.User',on_delete=models.CASCADE)
+	semister = models.PositiveIntegerField(blank=True, null=True)
+	department = models.CharField(max_length=255,blank = True,null = True)
+	year = models.PositiveIntegerField(blank=True, null=True)
+	is_drop = models.BooleanField(default=False)
+
+	def __str__(self):
+		return "registration"+self.student.username
