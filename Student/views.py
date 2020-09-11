@@ -259,3 +259,34 @@ class Mark(LoginRequiredMixin,UserPassesTestMixin, View):
         }
 
         return render(request,'marks.html',context)
+    
+ class Exam_Registration(View):
+    def get(self,request,*args,**kwargs):
+        context = {
+            'courses':Course.objects.all()
+        }
+        return render(request,'student-reg.html',context)
+
+    def post(self,request,*args,**kwargs):
+        registration = Student_Exam_Registration()
+        s = User.objects.filter(username = request.POST['name']).first()
+        if s:
+            registration.student = s
+            registration.year=request.POST['year']
+            registration.semister=request.POST['semister']
+            registration.department=request.POST['department']
+            registration.session=request.POST['session']
+            registration.save()
+            for i in request.POST.getlist('my_multi_select1[]'):
+                c = Course.objects.get(title = i)
+                registration.course.add(c)
+            if request.POST['course1']:
+                registration.course.add(Course.objects.get(title = request.POST['course1']))
+            if request.POST['course2']:
+                registration.course.add(Course.objects.get(title = request.POST['course2']))
+            if request.POST['course3']:
+                registration.course.add(Course.objects.get(title = request.POST['course3']))
+
+            return HttpResponseRedirect(reverse('moderator:home'))
+        else:
+            return HttpResponse('no students of this username')
