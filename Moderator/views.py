@@ -6,7 +6,8 @@ from .models import *
 from django.contrib.auth import authenticate, login,logout
 from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
 from django.contrib.auth.models import Group
-
+from django.contrib.auth.models import User
+from Teacher.models import *
 
 
 
@@ -17,6 +18,7 @@ from django.contrib.auth.models import Group
 
 class Home(View):
     template_name = 'home.html'
+    #template_name = 'profile.html'
     def get(self,request,*args,**kwargs):
         return render(request,self.template_name)
 
@@ -52,7 +54,7 @@ class Create_Account(View):
         login(request, user)
         #my_group.user_set.add(user)
         user.groups.add(my_group)
-        return HttpResponseRedirect(reverse("moderator:home")) 
+        return render(request,'profile.html')
 
         """form = self.form_class(request.POST)
         if form.is_valid():
@@ -224,7 +226,7 @@ class Add_Course(LoginRequiredMixin, UserPassesTestMixin, View):
     def get(self,request,*args,**kwargs):
 
         context ={
-            'teachers':User.objects.filter(is_teacher=True)
+            'teachers':Teacher.objects.all()
         }
         return render(request,'course_create.html',context)
 
