@@ -18,6 +18,7 @@ from Teacher.models import *
 from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
 from Teacher.tasks import *
 from django.contrib.auth.models import Group
+from django.contrib.auth.models import User
 
 # Create your views here.
 
@@ -33,8 +34,12 @@ class Course_list(LoginRequiredMixin,UserPassesTestMixin, View):
     raise_exception = True
     
     def test_func(self):
-        g = self.request.user.groups.all()
-        return g.name == 'Student' or g.name == 'Teacher'
+        g = self.request.user.groups.filter(name = 'Student') | self.request.user.groups.filter(name = 'Teacher')
+
+        if g or self.request.user.is_superuser:
+            return True
+        else:
+            return False
     
     def handle_no_permission(self):
         return HttpResponse ('you have no permission')
@@ -48,8 +53,12 @@ class Acm_Problem_Submit(LoginRequiredMixin,UserPassesTestMixin, View):
     raise_exception = True
     
     def test_func(self):
-        g = self.request.user.groups.all()[0]
-        return g.name == 'Student' or g.name == 'Teacher'
+        g = self.request.user.groups.filter(name = 'Student') | self.request.user.groups.filter(name = 'Teacher')
+
+        if g or self.request.user.is_superuser:
+            return True
+        else:
+            return False
     
     def handle_no_permission(self):
         return HttpResponse ('you have no permission')
@@ -126,8 +135,12 @@ class Exam_Detail(LoginRequiredMixin,UserPassesTestMixin, View):
     raise_exception = True
     
     def test_func(self):
-        g = self.request.user.groups.all()
-        return g.name == 'Student' or g.name == 'Teacher'
+        g = self.request.user.groups.filter(name = 'Student') | self.request.user.groups.filter(name = 'Teacher')
+
+        if g or self.request.user.is_superuser:
+            return True
+        else:
+            return False
     
     def handle_no_permission(self):
         return HttpResponse ('you have no permission')
@@ -147,7 +160,7 @@ class Problem_list(LoginRequiredMixin,UserPassesTestMixin, View):
 
         g = self.request.user.groups.filter(name = 'Student') | self.request.user.groups.filter(name = 'Teacher')
 
-        if g:
+        if g or self.request.user.is_superuser:
             return True
         else:
             return False
@@ -172,7 +185,7 @@ class Exam_Problem_Show(LoginRequiredMixin,UserPassesTestMixin, View):
     def test_func(self):
         g = self.request.user.groups.filter(name = 'Student') | self.request.user.groups.filter(name = 'Teacher')
 
-        if g and self.request.user.is_superuser:
+        if g or self.request.user.is_superuser:
             return True
         else:
             return False
@@ -182,7 +195,7 @@ class Exam_Problem_Show(LoginRequiredMixin,UserPassesTestMixin, View):
 
     def get(self,request,*args,**kwargs):
         
-        q_set = Question_Set.objects.all()[0]
+        q_set = Question_Set.objects.get(id=self.kwargs['id'])
         context = {
             'q_set': q_set,
             'questions': q_set.questions.all()
@@ -196,15 +209,19 @@ class Acm_Problem_show(LoginRequiredMixin,UserPassesTestMixin, View):
     raise_exception = True
     
     def test_func(self):
-        g = self.request.user.groups.all()
-        return g[0].name == 'Student' or g[0].name == 'Teacher'
+        g = self.request.user.groups.filter(name = 'Student') | self.request.user.groups.filter(name = 'Teacher')
+
+        if g or self.request.user.is_superuser:
+            return True
+        else:
+            return False
     
     def handle_no_permission(self):
         return HttpResponse ('you have no permission')
 
     def get(self,request,*args,**kwargs):
         context={
-            'problem_id' : Post.objects.get(id = kwargs['id'])
+            'problem_id' : Post.objects.get(id = self.kwargs['id'])
         }
         
         
@@ -228,8 +245,12 @@ class Exam_list(LoginRequiredMixin,UserPassesTestMixin, View):
     raise_exception = True
     
     def test_func(self):
-        g = self.request.user.groups.all()
-        return g.name == 'Student' or g.name == 'Teacher'
+        g = self.request.user.groups.filter(name = 'Student') | self.request.user.groups.filter(name = 'Teacher')
+
+        if g or self.request.user.is_superuser:
+            return True
+        else:
+            return False
     
     def handle_no_permission(self):
         return HttpResponse ('you have no permission')
@@ -247,8 +268,12 @@ class Mark(LoginRequiredMixin,UserPassesTestMixin, View):
     raise_exception = True
     
     def test_func(self):
-        g = self.request.user.groups.all()
-        return g.name == 'Student' or g.name == 'Teacher'
+        g = self.request.user.groups.filter(name = 'Student') | self.request.user.groups.filter(name = 'Teacher')
+
+        if g or self.request.user.is_superuser:
+            return True
+        else:
+            return False
     
     def handle_no_permission(self):
         return HttpResponse ('you have no permission')
@@ -259,8 +284,8 @@ class Mark(LoginRequiredMixin,UserPassesTestMixin, View):
         }
 
         return render(request,'marks.html',context)
-    
- class Exam_Registration(View):
+
+class Exam_Registration(View):
     def get(self,request,*args,**kwargs):
         context = {
             'courses':Course.objects.all()
