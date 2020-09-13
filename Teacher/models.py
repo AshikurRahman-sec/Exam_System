@@ -1,7 +1,35 @@
 from django.db import models
 from ckeditor_uploader.fields import RichTextUploadingField
+from django.contrib.auth.models import User
 
 # Create your models here.
+
+class Designation(models.Model):
+    title = models.CharField(max_length=255)
+    created = models.DateField(auto_now_add=True)
+
+    def __str__(self):
+        return self.title
+
+class Topic(models.Model):
+    name = models.CharField(max_length=200)
+    added_in = models.DateField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name
+
+class Teacher(models.Model):
+	teacher = models.OneToOneField(User, on_delete=models.CASCADE)
+	photo = models.ImageField(upload_to='image/')
+	date_of_birth = models.DateField(blank=True, null=True)
+	designation = models.ForeignKey(Designation, on_delete=models.CASCADE)
+	expertise = models.ManyToManyField(Topic, blank=True, related_name='expert_in')
+	mobile = models.CharField(max_length=11, blank=True, null=True)
+	update = models.DateTimeField(auto_now=True)
+
+	
+	def __str__(self):
+		return self.teacher.username
 
 class Title(models.Model):
 	title = models.CharField(max_length=255,blank=True,null=True,unique=True)
@@ -108,13 +136,14 @@ class Exam(models.Model):
 		return exam_name
 
 class Take_Attendance(models.Model):
-    student = models.ForeignKey('Moderator.User', on_delete=models.DO_NOTHING)
+    student = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     course = models.ForeignKey('Moderator.Course', on_delete=models.DO_NOTHING)
     date = models.DateField(auto_now_add=True)
 
 class Attendance(models.Model):
-	student = models.ManyToManyField('Moderator.User')
+	student = models.ManyToManyField(User)
 	course = models.ForeignKey('Moderator.Course', on_delete=models.DO_NOTHING)
 	date = models.DateField(auto_now_add=True)
+
 
 
