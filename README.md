@@ -1,17 +1,19 @@
 # Online Exam System
- A Django based personal exam website.
+
+ A Django based  exam website.
 
 # Requirements (that shall be installed in your system)
-1. Git 
-3. Python
-version 3.6.2
-<link>(https://www.python.org/downloads/release/python-362/)
-2. virtualenv
-install command > pip install virtualenv
-3. Mysql database
-4. Redis server
-version 3.0.504
-<link>(https://github.com/microsoftarchive/redis/releases)
+
+1. Git<br> 
+3. Python<br>
+version 3.6.2<br>
+<link>(https://www.python.org/downloads/release/python-362/)<br>
+2. virtualenv<br>
+install command > pip install virtualenv<br>
+3. Mysql database<br>
+4. Redis server<br>
+version 3.0.504<br>
+<link>(https://github.com/microsoftarchive/redis/releases)<br>
 
 
 # Run On Your Machine?
