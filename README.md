@@ -4,16 +4,16 @@
 
 # Requirements (that shall be installed in your system)
 
-1. Git<br> 
-3. Python<br>
-version 3.6.2
-<link>(https://www.python.org/downloads/release/python-362/)<br>
+1. Git <br> 
+3. Python <br>
+<code>version 3.6.2</code> <br>
+<code><link>(https://www.python.org/downloads/release/python-362/)</code> <br>
 2. virtualenv<br>
-install command > pip install virtualenv<br>
-3. Mysql database<br>
-4. Redis server<br>
-version 3.0.504
-<link>(https://github.com/microsoftarchive/redis/releases)<br>
+<code>install command > pip install virtualenv<code> <br>
+3. Mysql database <br>
+4. Redis server <br>
+<code>version 3.0.504</code> <br>
+ <code><link>(https://github.com/microsoftarchive/redis/releases)</code> <br>
 
 
 # Run On Your Machine?
