@@ -1,23 +1,21 @@
+# Online Exam System
+ A Django based personal exam website.
 
-# Exam_System
-## Description:
+# Requirements (that shall be installed in your system)
+1. Git 
+2. virtualenv
+3. Python
 
-Exam_System is a web app.It's main purpose is take exam.
+# Run On Your Machine?
 
-## Installation:
-
-1.First install xamp server.
-2.Install radis broker(version 2.10.6)
-3.Install virtualenvironment
-4.Clone the project in the virtualenvironment
-5.Active virtualenvironment
-6.To install packages give command in commandline or powershell "pip install -r requirements.txt"
-
-## Run project:
-
-1.Start mysql server
-2.Start radis server
-3.Open two command prompt or powershell
-4.To run celery server "celery -A Exam_System worker --loglevel=info"
-5.To run main server "python manage.py runserver"
-
+1. Firstly, clone the repository using the git shell <br>
+<code>$ git clone https://github.com/vaibhav0103/personal-portfolio.git</code> <br>
+2. Goto the base directory of the project <br>
+<code>cd portfolio </code> <br>
+3. Create a virtual environment and activate it. <br>
+<code>$ virtualenv venv</code> <br>
+<code>$ venv\Scripts\activate</code> on Windows or <code>$ source venv/bin/activate</code> on Posix system <br>
+4. Install the requirements for the project <br>
+<code>$ pip install -r requirements.txt</code>  <br>
+5. Now start the localhost server<br>
+<code>$ python manage.py runserver</code> <br>
