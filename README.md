@@ -6,14 +6,14 @@
 
 1. Git<br> 
 3. Python<br>
-<code>version 3.6.2<br>
-<code><link>(https://www.python.org/downloads/release/python-362/)<br>
+<code> version 3.6.2<br>
+<code> <link>(https://www.python.org/downloads/release/python-362/)<br>
 2. virtualenv<br>
-<code>install command > pip install virtualenv<br>
+<code> install command > pip install virtualenv<br>
 3. Mysql database<br>
 4. Redis server<br>
-<code>version 3.0.504<br>
-<code><link>(https://github.com/microsoftarchive/redis/releases)<br>
+<code> version 3.0.504<br>
+<code> <link>(https://github.com/microsoftarchive/redis/releases)<br>
 
 
 # Run On Your Machine?
