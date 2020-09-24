@@ -7,13 +7,13 @@
 1. Git <br> 
 2. Python <br>
 version 3.6.2 <br>
-<code><link>(https://www.python.org/downloads/release/python-362/)</code> <br>
+<code><link> https://www.python.org/downloads/release/python-362/ </code> <br>
 3. virtualenv <br>
 install command > pip install virtualenv <br>
 4. Mysql database <br>
 5. Redis server <br>
 version 3.0.504 <br>
-<code><link>(https://github.com/microsoftarchive/redis/releases)</code> <br>
+<code><link> https://github.com/microsoftarchive/redis/releases </code> <br>
 
 
 # Run On Your Machine?
