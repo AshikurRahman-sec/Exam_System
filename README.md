@@ -29,3 +29,5 @@ version 3.0.504 <br>
 <code>$ pip install -r requirements.txt</code>  <br>
 5. Now start the localhost server<br>
 <code>$ python manage.py runserver</code> <br>
+5. Now start the Celery server<br>
+<code>$ celery -A Exam_System worker -l info</code> <br>
