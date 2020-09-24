@@ -3,8 +3,16 @@
 
 # Requirements (that shall be installed in your system)
 1. Git 
-2. virtualenv
 3. Python
+ * version 3.6.2
+ * <link>(https://www.python.org/downloads/release/python-362/)
+2. virtualenv
+ * install command > pip install virtualenv
+3. Mysql database
+4. Redis server
+ * version 3.0.504
+ * <link>(https://github.com/microsoftarchive/redis/releases)
+
 
 # Run On Your Machine?
 
