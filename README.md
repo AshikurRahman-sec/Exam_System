@@ -7,7 +7,7 @@
 1. Git <br> 
 2. Python <br>
 version 3.6.2 <br>
-<link>(https://www.python.org/downloads/release/python-362/) <br>
+<code><link>(https://www.python.org/downloads/release/python-362/)</code> <br>
 3. virtualenv <br>
 install command > pip install virtualenv <br>
 4. Mysql database <br>
