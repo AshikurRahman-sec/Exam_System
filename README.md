@@ -13,7 +13,7 @@ install command > pip install virtualenv <br>
 4. Mysql database <br>
 5. Redis server <br>
 version 3.0.504 <br>
-<link>(https://github.com/microsoftarchive/redis/releases) <br>
+<code><link>(https://github.com/microsoftarchive/redis/releases)<code> <br>
 
 
 # Run On Your Machine?
